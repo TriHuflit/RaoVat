@@ -1,0 +1,15 @@
+﻿@model IEnumerable<RaoVat.Models.SubCategory>
+    <div style="display: flex;background-color:white;margin-top:12px;">
+        @foreach (var item in Model)
+        {
+            <div style="border-right: 1px solid var(--border--color);">
+                <a class="cate-link"  href="@Url.Action("searchBySubCategory","Home",new { IDSubCategory=item.IDSubCategory})" style="display: block; padding:0px 23px;padding-top: 12px; text-align: center;text-decoration: none; font-size:1.4rem; color: black;">
+                    <div style="background-color: var(--border--color);display: flex; border-radius: 50%;width: 52px; height: 52px;">
+                        <img src="@Url.Content(item.Image)" alt="" style="width:100%;height:100%;  object-fit: cover; border-radius: 50%;">
+                    </div>
+                    <p style="margin-top: 8px;">@item.Name</p>
+                </a>
+            </div>
+        }
+
+    </div>

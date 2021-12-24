@@ -1,0 +1,59 @@
+﻿@model IEnumerable<RaoVat.Models.News>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tin rao chờ duyệt</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Mã Tin Rao
+        </th>
+        <th>
+            Người Đăng
+        </th>
+        <th>
+           Thời Gian
+        </th>
+        <th>
+           Loại Hình Kinh Doanh
+        </th>
+        <th>
+           Tên Tin Rao
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDNews)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Users.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        <td>
+            @if (item.Type == false)
+            {
+                <span>Cá Nhân</span>  
+            }
+            else
+            {
+                <span>Cửa Hàng</span >
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Xem Chi Tiết", "Detail", new { IDNews = item.IDNews })   
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,86 @@
+﻿@model PagedList.IPagedList<RaoVat.Models.Brand>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display:flex; justify-content:space-between; align-items:center;">
+    <h1>Danh Sách Nhãn Hiệu,Dòng</h1>
+    @using (Html.BeginForm("Brand", "Categories", FormMethod.Get, new { @class = "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" }))
+    {
+        <div class="input-group">
+            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                   aria-label="Search" aria-describedby="basic-addon2" name="searchBrand">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" style="background:#419A1C;">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    }
+</div>
+<p>
+    @Html.ActionLink("Tạo mới", "CreateBrand", "Categories")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Mã Dòng
+        </th>
+        <th>
+            Danh mục con
+        </th>
+        <th>
+            Dòng
+        </th>
+        <th>
+            Hình Ảnh
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDBrand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubCategory.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <img src="@item.Image" alt="Chưa có hình ảnh" style="width:100px; height:100px " />
+            </td>
+            <td>
+                @Html.ActionLink("Chỉnh sửa", "EditBrand", new { IDBrand = item.IDBrand }) |
+                @Html.ActionLink("Xóa", "DeleteBrand", new { IDBrand = item.IDBrand })
+            </td>
+        </tr>
+
+
+    }
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Brand", new { page }), new PagedListRenderOptions
+{
+    DisplayLinkToIndividualPages = true,
+    DisplayPageCountAndCurrentLocation = false,
+    MaximumPageNumbersToDisplay = 10,
+    LiElementClasses = new string[] { "page-item" },
+    UlElementClasses = new string[] { "pagination" },
+    ContainerDivClasses = new string[] { "page-list" },
+    Display = PagedList.Mvc.PagedListDisplayMode.IfNeeded,
+    LinkToNextPageFormat = "Next",
+    LinkToPreviousPageFormat = "Prev",
+    DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+    ClassToApplyToFirstListItemInPager = "pagerLiElementFirst",
+    ClassToApplyToLastListItemInPager = "pagerLiElement",
+
+})
+
+

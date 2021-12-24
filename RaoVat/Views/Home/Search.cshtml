@@ -1,0 +1,15 @@
+﻿<div class="header__search">
+    @using (Html.BeginForm("searchByKeys", "Home", FormMethod.Post,new { style="display: flex;justify-content: center;align-items: center;height: 48px;", autocomplete = "off" }))
+    {
+        
+
+        <div class="header__search-input-wrap">
+            <input type="text" class="header__search-input" placeholder="Tìm kiếm trên Rao Vặt" name="keyword" >
+        </div>
+        <div  style="display:flex;position:relative;height:48px;">
+            <i class="header__search-icon fas fa-search" style="position: absolute; left: 8px; top: 36%;"></i>
+            <input class="header__search-btn" value=" Tìm Kiếm" readonly="readonly" type="submit"/>
+        </div>
+
+    }
+</div>

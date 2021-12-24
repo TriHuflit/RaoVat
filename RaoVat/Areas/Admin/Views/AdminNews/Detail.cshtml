@@ -1,0 +1,112 @@
+﻿@model RaoVat.Models.News
+@using System.Globalization;
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h1, p {
+        color: black;
+    }
+
+    b {
+        color: #419A1C;
+    }
+
+    .btn {
+        flex: 1;
+        line-height: 2rem;
+       
+    }
+</style>
+
+<div class="product__info-body" id="body-info">
+    <h1><b>Thông Tin Tin Rao</b></h1>
+    <div class="grid__row" style="padding-bottom: 12px;">
+        <div class="grid__column-8">
+            <div class="product__info-detail">
+                <h1 class="description__header"><b>Tài Khoản Đăng Tin:</b> @Html.DisplayFor(model => model.Users.UserName, new { @class = "description__header" }) </h1>
+                <h1 class="description__header"><b>Hình Ảnh</b></h1>
+                <div class="product__info-sliderImg">
+                    @{Html.RenderAction("ImgNews", "AdminNews", new { IDNews = Model.IDNews });}
+                </div>
+                <div class="product__info-description">
+
+                    <h1 class="description__header"><b>Tên Tin Rao:</b> @Html.DisplayFor(model => model.Name, new { @class = "description__header" }) </h1>
+                    <div class="description__price-current">
+                        @{ CultureInfo culture = new CultureInfo("vi-VN"); }
+                        <p> <b>Giá: </b>  @String.Format(culture, "{0:N0}", Model.Price) VNĐ</p>
+                    </div>
+                    <div class="description__detail">
+                        <h1 class="description__header"><b>Mô Tả Tin Rao:</b></h1>
+                        <p class="description__detail-text">
+                            @Html.DisplayFor(model => model.Description)
+                        </p>
+                    </div>
+                    <div>
+                        <h1 class="description__header">
+                            <b>Loại Hình Kinh Doanh:</b>
+                            @if (Model.Type == false)
+                            {
+                                <span>Cá Nhân</span>
+                            }
+                            else
+                            {
+                                <span>Cửa Hàng</span>
+                            }
+                        </h1>
+                    </div>
+                    <div style=" display: flex; justify-content: space-between;">
+                        <h1 class="description__header">
+                            <b>Danh Mục: </b> @Html.DisplayFor(model => model.Brand.SubCategory.Category.Name)
+                        </h1>
+                        <h1 class="description__header">
+                            <b>Danh Mục Con: </b>  @Html.DisplayFor(model => model.Brand.SubCategory.Name)
+                        </h1>
+                        <h1 class="description__header">
+                            <b>Dòng: </b>  @Html.DisplayFor(model => model.Brand.Name)
+                        </h1>
+                    </div>
+                    <div>
+                        <h1 class="description__header"><b>Thời Gian Đăng: </b>  @Html.DisplayFor(model => model.Time)</h1>
+                    </div>
+                </div>
+                <div style="display:flex;justify-content:center;">
+                    <a onclick="Agree('@Model.IDNews')" class="btn btn-success" style="background: #419A1C;margin-right:8px; ">Duyệt</a>
+                    <a onclick="Denine('@Model.IDNews')" class="btn btn-danger" style="margin-left:8px;">Từ chối</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="message-success" id="msg1" style="display:none;opacity:1;">
+    <strong><span class="glyphicon glyphicon-ok"></span>Tin đã được duyệt</strong>
+</div>
+<div class="message-error" id="msg2" style="display:none;opacity:1;">
+    <strong><span class="glyphicon glyphicon-ok"></span>Tin đã bị từ chối</strong>
+</div>
+<script>
+
+    function Agree(IDNews) {      
+        $.ajax({
+            type: "post",
+            url: "/AdminNews/Agree",
+            data: { 'IDNews': IDNews },
+            success: function () {
+                $('#msg1').show();
+                $('#body-info').hide();
+            }
+        })
+    }
+    function Denine(IDNews) {
+        $.ajax({
+            type: "post",
+            url: "/AdminNews/Denine",
+            data: { 'IDNews': IDNews },
+            success: function () {
+                $('#msg2').show();
+                $('#body-info').hide();
+            }
+        })
+    }
+</script>

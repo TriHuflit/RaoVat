@@ -1,0 +1,55 @@
+﻿@model RaoVat.Models.SubCategory
+
+@{
+    ViewBag.Title = "EditCate";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chỉnh sửa danh mục con</h2>
+
+@using (Html.BeginForm("EditSubCate","Categories",FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>SubCategory</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IDSubCategory)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IDCategory, "IDCategory", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IDCategory, new SelectList(Model.ListCategory, "IDCategory", "Name"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IDCategory, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageSubCate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <img src="@Url.Content(Model.Image)" style="width:150px;height:150px" id="previewImage" multiple accept="image/jpeg,image/png,image/jpg" />
+                <input type="file" id="Image" name="Image" onchange="ShowImage(this, document.getElementById('previewImage'))" />
+                @Html.ValidationMessageFor(model => model.ImageSubCate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save"class="btn btn-primary" style=" background-color: #419A1C; border-color:#419A1C;" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

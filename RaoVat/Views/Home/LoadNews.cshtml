@@ -1,0 +1,79 @@
+﻿@model PagedList.IPagedList<RaoVat.Models.News>
+@using PagedList.Mvc
+@using System.Globalization;
+<style>
+    .pagination{
+        justify-content:center !important;
+            
+    }
+    .page-item{
+        list-style-type:none;
+    }
+    .page-item a {
+        color:#419A1C !important;
+        text-decoration:none;
+        cursor:pointer;
+        font-size:1.7rem;
+        border:none;
+    }
+        .page-item.active a {
+            z-index: 3;
+            text-decoration: underline !important;
+            border-color: #dddfeb !important;
+            background: white !important;
+
+        }   
+</style>
+<div class="home-product">
+    <h1 class="home-product__header">Tin Đăng Mới</h1>
+    <div class="grid__row" id="newspage">
+        @foreach (var item in Model)
+        {
+            <div class="grid__column-2">
+                <div class="home-product-item">
+                    <a href="@Url.Action("InfoNews","News",new { IDNews=item.IDNews })" class="home-product-item__link">
+                        <img src="@item.Image" class="home-product-item__img" />
+                        <h4 class="home-product-item__name">@item.Name</h4>
+                    </a>
+                    <div class="home-product-item__price">
+                        @{ CultureInfo culture = new CultureInfo("vi-VN");
+                            var price = String.Format(culture, "{0:N0}", item.Price);
+                        }
+                        <span class="home-product-item__price-current">@price VNĐ</span>
+                        @{Html.RenderAction("WishList", "Home", new { IDNews = item.IDNews });}
+                    </div>
+                    <div class="home-product-item__footer">
+                        <img src="@item.Users.Image" alt="" class="home-product-item__footer-img">
+                        <span class="home-product-item__footer-location">@item.Address</span>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="footer-product">
+        @*<button class="footer-product__btn">&#10094;</button>
+            <button class="footer-product__btn">1</button>
+            <a class="footer-product__btn" href="#">2</a>
+            <button class="footer-product__btn">&#10095;</button>*@
+    </div>
+
+
+    @Html.PagedListPager(Model, page => Url.Action("Index","Home", new { page }), new PagedListRenderOptions
+    {
+        DisplayLinkToIndividualPages = true,
+        DisplayPageCountAndCurrentLocation = false,
+        MaximumPageNumbersToDisplay = 5,
+        LiElementClasses = new string[] { "page-item" },
+        UlElementClasses = new string[] { "pagination" },
+        ContainerDivClasses = new string[] { "page-list" },
+        Display = PagedList.Mvc.PagedListDisplayMode.IfNeeded,
+        LinkToNextPageFormat = "Next",
+        LinkToPreviousPageFormat = "Prev",
+        DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+        ClassToApplyToFirstListItemInPager = "pagerLiElementFirst",
+        ClassToApplyToLastListItemInPager = "pagerLiElement",
+
+    })
+</div>
+

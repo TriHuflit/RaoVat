@@ -1,0 +1,74 @@
+﻿@model RaoVat.Models.Register
+@{
+    ViewBag.Title = "Resgister";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<content class="content__register">
+    <div class="auth-form__register">
+        <div class="auth-form__container">
+            <div class="auth-form__header">
+                <h1 class="auth-form__header-text">Đăng Ký</h1>
+                <a href="@Url.Action("Index", "UserLogin")" class="auth-form__header-link">Đăng Nhập</a>
+            </div>
+
+            @using (Html.BeginForm("Register", "UserLogin", FormMethod.Post))
+            {
+                if (ViewData["Error"] != null)
+                {
+                    <span class="message-error">
+                       - @ViewData["Error"].ToString()
+                    </span>
+                }
+                if (TempData["Success"] != null)
+                {
+                    <span class="message-success">
+                       - @TempData["Success"].ToString()
+                    </span>
+                }
+
+                <div class="auth-form__form">
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "auth-form__form-input", @placeholder = "Nhập tài khoản của bạn" })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @style = "color:red" })
+
+                    @Html.PasswordFor(model => model.PassWord, new { @class = "auth-form__form-input", @placeholder = "Nhập mật khẩu của bạn" })
+                    @Html.ValidationMessageFor(model => model.PassWord, "", new { @style = "color:red" })
+
+                    @Html.PasswordFor(model => model.ComfirmPassWord, new { @class = "auth-form__form-input", @placeholder = "Nhập mật khẩu của bạn" })
+                    @Html.ValidationMessageFor(model => model.ComfirmPassWord, "", new { @style = "color:red" })
+
+                    @Html.TextBoxFor(model => model.Email, new { @class = "auth-form__form-input", @placeholder = "Nhập Email của bạn" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @style = "color:red" })
+                </div>
+                <div class="auth-form-aside">
+                    <p>
+                        Bằng việc đăng ký, bạn đã đồng ý với Rao Vặt về
+                        <a href="" class="auth-form-aside-link">Điều Khoản dịch vụ</a>
+                        & <a href="" class="auth-form-aside-link">Chính sách bảo mật</a>
+                    </p>
+                </div>
+                <div class="auth-form__controls">
+                    <button class="auth-form__controls-btn btn btn-primary" type="submit" value="Đăng Ký">Đăng Ký</button>
+
+                </div>
+            }
+        </div>
+        @*<div class="auth-form__other">
+            <div class="auth-form__other-line"></div>
+            <span class="auth-form__other-text">Hoặc</span>
+            <div class="auth-form__other-line"></div>
+        </div>
+        <div class="auth-form__socials">
+            <a href="" class="auth-form__socials--facebook btn">
+                <img src="~/Asset/img/facebook.png" alt="" class="auth-form__socials-img">
+                <span class="auth-form__socials-text">Đăng Nhập với FaceBook</span>
+            </a>
+            <a href="" class="auth-form__socials--google btn">
+                <img src="~/Asset/img/google.jpg" alt="" class="auth-form__socials-img">
+                <span class="auth-form__socials-text">Đăng Nhập với Google</span>
+            </a>
+        </div>*@
+    </div>
+</content>
+
+

@@ -1,0 +1,120 @@
+﻿@model IEnumerable<RaoVat.Models.News>
+@{
+    ViewBag.Title = "searchByKeys";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .ui-widget-header {
+        background: rgb(65, 154, 28);
+    }
+</style>
+
+<div class="grid">
+    <div class="grid__row">
+        <div class="grid__column-2">
+            <div class="fillter">
+                <h1 class="fillter__header" style="border-bottom: 1px solid var(--border--color);">Lọc Tin Rao</h1>
+                <div class="fillter__div" style="margin: 16px 16px;">
+                    <h1 class="fillter__header" style="margin: 0;">Danh Mục:</h1>
+                    @Html.DropDownList("IDCategory", new SelectList(ViewBag.ListCate, "IDCategory", "Name"), "Chọn danh mục", new { @class = "fillter__category", style = "font-size: 1.5rem;" })
+                </div>
+                <div style="display: flex;align-items: center;">
+
+                </div>
+                <div class="price-filter">
+                    <h1 class="fillter__header">Giá:</h1>
+
+                    <div id="slider-range" style="margin:0 16px;"></div>
+                    <p class="amount">
+
+                        <input type="text" id="amount" readonly="readonly" style=" border:none;text-align:center;width: 100%;font-size: 1.4rem;" />
+                    </p>
+                    <div style="text-align:center;padding-bottom:18px;">
+                        <button class="fillter-btn btn btn-primary">Lọc theo giá</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="grid__column-10">
+            <div class="info__user-news">
+                <h1 class="info__user-news-header">
+                    Tin Đăng Tìm Thấy
+                    @if (Model == null || Model.ToList().Count() == 0)
+                    {
+                        <span class="info__user-news-subheader">-0 tin</span>
+                    }
+                    else
+                    {
+                        <span class="info__user-news-subheader">- @Model.ToList().Count tin</span>
+                    }
+                </h1>
+                <div class="info__user-news-detail">
+                    <div id="fillterPrice">
+                        @if (Model == null || Model.ToList().Count == 0)
+                        {
+                            <div class="info__user-news-nothing">
+                                <img src="~/Asset/img/binoculars.PNG" alt="" class="info__user-news-nothing-img">
+                                <div class="info__user-news-nothing-text">Không tìm thấy tin rao bằng từ khóa của bạn.</div>
+                            </div>
+                        }
+                        else
+                        {
+
+                            Html.RenderPartial("LoadNewsBySearch", Model);
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="~/Asset/css/toastr.min.css" rel="stylesheet">
+<script src="~/Asset/js/toastr.min.js"></script>
+<script src="~/Asset/js/wishlist.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" />
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script>
+
+var min = 0;
+var max = 300000000;
+var callTimeOut;
+$("#amount").val(Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(min) + " - " + Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(max));
+var pricesSlider = $("#slider-range").slider({
+    range: true,
+    min: 0,
+    max: 300000000,
+    values: [0, 300000000],
+    slide: function (event, ui) {
+        min = ui.values[0];
+        max = ui.values[1];
+        $("#amount").val(Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(ui.values[0]) + " - " + Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(ui.values[1]));
+    }
+});
+$(".fillter-btn").click(function () {
+    GetData(min, max);
+})
+function GetData(min, max) {
+    $.ajax({
+        url: '@Url.Action("LoadNewsBySearch","News")',
+        data: {
+            min: min,
+            max: max,
+        }
+    }).done(function (response) {
+        $(".info__user-news-nothing").attr("style", "display:none");
+        $("#fillterPrice").html(response);
+        $(".info__user-news-subheader").text(- +" " + $(".news__havenews-item").length + " Tin");
+    }).fail(function (XMLHttpRequest, textStatus, errorThorwn) {
+        $(".info__user-news-nothing").attr("style", "display:block");
+
+    })
+
+}
+
+$(".fillter__category").change(function (e) {
+    window.location.href = "/Home/searchByCategory?IDCategory=" + $(this).val();
+})
+
+</script>

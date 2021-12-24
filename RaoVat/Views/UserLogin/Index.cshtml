@@ -1,0 +1,56 @@
+﻿@model RaoVat.Models.AccountLogin
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<content class="content__login">
+    <div class="auth-form">
+        <div class="auth-form__container">
+            @using (Html.BeginForm("Index", "UserLogin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                if (ViewData["Error"] != null)
+                {
+                    <span class="message-error" style="margin-top:32px;">
+                        - @ViewData["Error"].ToString()
+                    </span>
+                }
+
+                @Html.AntiForgeryToken()
+
+                <div class="auth-form__header">
+                    <h1 class="auth-form__header-text">Đăng Nhập</h1>
+                    <a href="@Url.Action("Register","UserLogin")" class="auth-form__header-link">Đăng Ký</a>
+                </div>
+                <div class="auth-form__form">
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "auth-form__form-input", @placeholder = "Nhập tài khoản của bạn" })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @style = "color:red" })
+                    @Html.PasswordFor(model => model.PassWord, new { @class = "auth-form__form-input", @placeholder = "Mật Khẩu của bạn" })
+                    @Html.ValidationMessageFor(model => model.PassWord, "", new { @style = "color:red" })
+                </div>
+                <div class="auth-form__help">
+                    <a href="@Url.Action("ResetPassWord","UserLogin")" class="auth-form__help-link">Quên Mật Khẩu ?</a>
+                </div>
+                <div class="auth-form__controls">
+                    <button class="auth-form__controls-btn btn btn-primary" type="submit">Đăng Nhập</button>
+                </div>
+            }
+        </div>
+        @*<div class="auth-form__other">
+            <div class="auth-form__other-line"></div>
+            <span class="auth-form__other-text">Hoặc</span>
+            <div class="auth-form__other-line"></div>
+        </div>
+        <div class="auth-form__socials">
+            <a href="@Url.Action("Facebook", "UserLogin")" class="auth-form__socials--facebook btn">
+                <img src="~/Asset/img/facebook.png" alt="" class="auth-form__socials-img">
+                <span class="auth-form__socials-text">Đăng Nhập với FaceBook</span>
+            </a>
+            <a href="" class="auth-form__socials--google btn">
+                <img src="~/Asset/img/google.jpg" alt="" class="auth-form__socials-img">
+                <span class="auth-form__socials-text">Đăng Nhập với Google</span>
+            </a>
+        </div>*@
+    </div>
+</content>

@@ -1,0 +1,33 @@
+﻿.fillter {
+	position: sticky;
+	background-color: white;
+	margin-top: 18px;
+	top: 0;
+}
+
+.fillter__header {
+	padding: 16px 0px;
+	margin: 0px 16px;
+	font-size: 1.8rem;
+}
+
+.fillter__category {
+	font-size: 1.4rem;
+	border: 1px solid var(--border--color);
+	padding-left: 8px;
+}
+
+.fillter__type {
+	display: flex;
+	align-items: center;
+	font-size: 1.2rem;
+	line-height: 1.6rem;
+	padding-bottom: 16px;
+	margin: 0 8px;
+}
+
+	.fillter__type div {
+		display: flex;
+		align-items: center;
+		margin-right: 4px;
+	}

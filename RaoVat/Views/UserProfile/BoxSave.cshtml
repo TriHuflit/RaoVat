@@ -1,0 +1,134 @@
+﻿@model IEnumerable<RaoVat.Models.BoxSave>
+@using System.Globalization
+@{
+    ViewBag.Title = "BoxSave";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="grid">
+    <div class="info__user-news">
+        <h1 class="info__user-news-header">
+            Tin Rao Yêu Thích -
+            <span class="info__user-news-subheader"> @Model.ToList().Count Tin</span>
+        </h1>
+        @if (Model.ToList().Count == 0)
+        {
+            <div class="info__user-news-nothing" style="padding-bottom:32px;">
+                <img src="~/Asset/img/binoculars.PNG" alt="" class="info__user-news-nothing-img">
+                <div class="info__user-news-nothing-text">Không tìm thấy tin rao yêu thích nào của bạn.</div>
+            </div>
+        }
+        else
+        {
+            <div class="info__user-news-detail">
+                <ul class="news__havenews-list">
+                    @foreach (var item in Model)
+                    {
+                        <li class="news__havenews-item">
+                            <a href="@Url.Action("InfoNews","News",new { IDNews=item.IDNews })" class="news__havenews-link">
+                                <div class="news__havenews-border-img">
+                                    <img src="@Url.Content(item.Image)" alt="" class="news__havenews-img">
+                                </div>
+                                <div class="news__havenews-info">
+                                    <div class="news__havenews-name">@item.News.Name</div>
+                                    @{ CultureInfo culture = new CultureInfo("vi-VN");
+                                        var price = String.Format(culture, "{0:N0}", item.News.Price);
+                                    }
+                                <div class="news__havenews-price">@price VNĐ</div>
+                                </div>
+                            </a>
+                            <div class="news__havenews-subinfo">
+                                <div style="display: inline-block;">
+                                    @if (item.News.Type == true)
+                                    {
+                                        <span class="news__havenews-subinfo-text">
+                                            <i class="fas fa-store icon-news-store"></i>
+                                            Cửa hàng
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="news__havenews-subinfo-text">
+                                            <i class="fas fa-user icon-news-store"></i>
+                                            Cá Nhân
+                                        </span>
+                                    }
+                                    <i style="border-right: 1px solid var(--border--color);  margin:0px 4px ;"></i>
+                                    <span class="news__havenews-subinfo-text">@item.News.Time</span>
+                                </div>
+                                <div style="float:right;">
+                                    @{Html.RenderAction("WishList", "Home", new { IDNews = item.IDNews });}
+                                </div>                        
+                            </div>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        }
+    </div>
+</div>
+<link href="~/Asset/css/toastr.min.css" rel="stylesheet">
+<script src="~/Asset/js/script.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="~/Asset/js/toastr.min.js"></script>
+<script>
+    $('.home-product-item__like').click(function (e) {
+
+            var data = $(this).attr("id");
+            $.ajax({
+                dataType:"Html",
+                type: "post",
+                url: '@Url.Action("AddWishList", "Home")',
+                data: {IDNews: data},
+                success: function (result) {
+                    if (result == '""') {
+                        window.location.href = "/UserLogin";
+                    }
+                    else {
+                        if (result == '"True"') {
+                            $('#' + data).find('i').removeClass('far fa-heart');
+                            $('#' + data).find('i').addClass('fas fa-heart');
+                            toastr.success('Lưu Tin Rao Thành Công','Thông Báo');
+                        }
+                        else {
+                            $('#' + data).find('i').removeClass('fas fa-heart');
+                            $('#' + data).find('i').addClass('far fa-heart');
+                            toastr.error('Tin rao đã được hủy', 'Thông Báo');
+                        }
+                    }
+
+                }
+            })
+        })
+    //e.preventDefault();
+    //console.log($(this).attr("id"));
+    //if ($(this).find('i').hasClass('far fa-heart')) {
+    //    $(this).find('i').removeClass('far fa-heart');
+    //    $(this).find('i').addClass('fas fa-heart');
+    //    alert("Lưu Tin Thành Công");
+    //}
+    //else {
+    //    $(this).find('i').removeClass('fas fa-heart');
+    //    $(this).find('i').addClass('far fa-heart');
+    //    alert("Tin lưu đã được hủy");
+    //}
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "3000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+</script>

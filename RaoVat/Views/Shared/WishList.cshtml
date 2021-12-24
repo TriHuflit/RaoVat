@@ -1,0 +1,15 @@
+﻿@model RaoVat.Models.BoxSave
+
+@if (Model != null && Model.IDBoxSave !=null)
+{
+    <button class="home-product-item__like" id="@Model.IDNewsCurrent">
+        <i class="fas fa-heart "></i>
+    </button>
+}
+else
+{
+    <button class="home-product-item__like" id="@Model.IDNewsCurrent">
+        <i class="far fa-heart "></i>
+    </button>
+}
+

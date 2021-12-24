@@ -1,0 +1,16 @@
+﻿@model IEnumerable<RaoVat.Models.Category>
+
+<div class="category">
+    <h3 class="category__heading"><i class="category__heading-icon fas fa-align-justify"></i>Danh Mục</h3>
+    <ul class="category-list">
+        @foreach (var item in Model)
+        {
+            <li class="category-item">
+                <a href="@Url.Action("searchByCategory","Home",new { IDCategory=item.IDCategory })" class="category-item__link">
+                    <img src="@Url.Content(item.Image)" alt="" class="category-item__img">
+                    <span class="category-item__heading">@item.Name</span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

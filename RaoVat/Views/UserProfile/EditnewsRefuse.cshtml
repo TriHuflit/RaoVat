@@ -1,0 +1,134 @@
+﻿@model RaoVat.Models.News
+@{
+    ViewBag.Title = "Editnews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="grid">
+    <div class="create__news">
+        <div class="create__news-form">
+            @using (Html.BeginForm("EditnewsRefuse", "UserProFile", new { IDNews = Model.IDNews }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken();
+                if (ViewBag.status == "True")
+                {
+                    <div class="message-success" id="after" style="opacity:1; margin:14px 0px;">
+                        <strong><span class="glyphicon glyphicon-ok"></span>Chỉnh Sửa Thành Công</strong>
+                    </div>
+                }
+                if (ViewBag.status == "False")
+                {
+                    <div class="message-error" id="previous" style="opacity:1; margin:14px 0px;">
+                        <strong>Chỉnh sửa  thất bại</strong>
+                    </div>
+                }
+                <div class="create__news-info">
+                    <div class="create__news-header">
+                        <h1 class="create__news-header-1">Chỉnh sửa tin rao</h1>
+
+                    </div>
+                    <h1 class="create__news-header-info">Thông tin sản phẩm</h1>
+
+                    <div class="create__news-info-basic">
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @style = "color:red;font-size:1.4rem;" })
+                        <div class="create__news-info-basic-name">
+                            <span class="create__news-label">Tên sản phẩm</span>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "create__news-inputname", @placeholder = "Hãy nhập tên sản phẩm", maxlength = "100" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @style = "color:red;font-size:1.4rem;" })
+                        <div class="create__news-info-basic-price">
+                            <span class="create__news-label">Giá tiền</span>
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "create__news-inputname", @placeholder = "Hãy nhập số tiền của sản phẩm", type = "number" } })
+                        </div>
+                    </div>
+                    <div class="create__news-type">
+                        <p class="create__news-type-header">Hình Thức buôn bán:</p>
+                        <div class="create__news-type-select" style=" padding: 0px 32px;">
+                            @Html.RadioButtonFor(model => model.Type, "False", new { style = "height: 20px;width: 20px;" })
+                            <i class="fas fa-user icon-store"></i>
+                            <label class="create__news-type-label" for="personal">Cá nhân</label>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Type, "", new { @style = "color:red;font-size:1.4rem;" })
+                        <div class="create__news-type-select">
+                            @Html.RadioButtonFor(model => model.Type, "True", new { style = "height: 20px;width: 20px;" })
+                            <i class="fas fa-store icon-store"></i>
+                            <label class="create__news-type-label" for="store">Cửa hàng</label>
+                        </div>
+                    </div>
+                    <div class="create__news-img">
+                        <span class="create__news-label">Chọn hình ảnh</span>
+                        <br>
+                        <div>
+                            <div class="input-field">
+                                <div class="input-images-2" style="padding-top: .5rem;">
+                                    @{Html.RenderAction("EditImgNews", "UserProfile", new { IDNews = Model.IDNews });}
+                                </div>
+                            </div>
+                            @if (ViewBag.ErrorImg == "False")
+                            {
+                                <div style="color:red;font-size:1.4rem;">Vui Lòng chọn ảnh</div>
+                            }
+                        </div>
+
+                    </div>
+                    <div class="create__news-address">
+                        <h1 class="create__news-address-header" style="display:inline-block">Địa chỉ</h1>
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @style = "color:red;font-size:1.4rem;" })
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "create__news-address-input", style = "width:100%", placeholder = "Địa chỉ rao bán", maxlength = "100" } })
+
+                        @*<span class="create__news-label" style="min-width: 120px;">Tỉnh/Thành Phố</span>
+                            <select class="create_news-address-selected" name="calc_shipping_provinces" required="">
+                                <option value="">Tỉnh/Thành Phố</option>
+                            </select>
+                            <span class="create__news-label" style="min-width: 100px;">Quận/Huyện</span>
+                            <select class="create_news-address-selected" name="calc_shipping_district" required="">
+                                <option value="">Quận/Huyện </option>
+                            </select>
+                            <input class="" name="" type="hidden" value="">
+                            <input class="" name="" type="hidden" value="">
+                            <input class="" name="" type="hidden" value="">*@
+                    </div>
+                    <div class="create__news-category">
+                        <h1 class="create__news-address-header">Danh Mục</h1>
+                        @Html.DropDownList("IDCategory", new SelectList(Model.listCate, "IDCategory", "Name"), "Chọn danh mục", new { @class = "create_news-address-selected", style = "border: 1px solid var(--border--color);" })
+                        @Html.DropDownList("IDSubCategory", new SelectList(" "), "Chọn danh mục con", new { @class = "create_news-address-selected", style = "border: 1px solid var(--border--color);" })
+                        @Html.DropDownListFor(model => model.IDBrand, new SelectList(" "), "Chọn dòng", new { @class = "create_news-address-selected", style = "border: 1px solid var(--border--color);" })
+                        @Html.ValidationMessageFor(model => model.IDBrand, "", new { @style = "color:red;font-size:1.4rem;" })
+                    </div>
+                    <div class="create__news-description">
+                        <h1 class="create__news-address-header">Mô Tả</h1>
+                        @Html.TextAreaFor(model => model.Description, new { @cols = "135", name = "editor1", @rows = "15", @class = "create__news-description-text", @placeholder = "Mô tả tin đăng" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @style = "color:red;font-size:1.4rem;" })
+                    </div>
+
+                    <div class="create__news-comfirm">
+                        <input class="btn btn-primary create__news-comfirm-btn" onclick="getImage()" type="submit" value="Lưu Thay Đổi">
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="~/Asset/js/image-uploader.min.js"></script>
+<script src="~/Asset/js/preview-img.js"></script>
+<script src="~/Asset/js/loadcategory.js"></script>
+<script>
+    function getImage() {
+        var newimg = $(".news-img");
+        var createnew = $(".create__news-img");
+        $(newimg).each(function () {
+            var input = $("<input>");
+            input.attr("class", "listimg");
+            input.attr("id", "listImage");
+            input.attr("name", "listImage");
+            input.attr("type", "hidden");
+            createnew.after(input);
+        })
+        let listimg = document.getElementsByClassName('listimg');
+        for (let i = 0; i < newimg.length; i++) {
+            listimg[i].value = newimg[i].src;
+        }
+        console.log(listimg);
+    }
+</script>

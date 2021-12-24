@@ -1,0 +1,172 @@
+﻿@model RaoVat.Models.Users
+
+@{
+    ViewBag.Title = "detailInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="grid">
+    <div class="grid__row">
+        <div class="grid__column-8 backgroud-color-white">
+            <h1 class="edit__info-header">Thông tin cá nhân</h1>
+            @if (ViewBag.status == "True")
+            {
+                <div class="message-success" id="after" style="opacity:1; margin:14px 0px;">
+                    <strong><span class="glyphicon glyphicon-ok"></span>Thay Đổi Thông Tin Thành Công</strong>
+                </div>
+            }
+            @if (ViewBag.status == "False")
+            {
+                <div class="message-error" id="previous" style="opacity:1; margin:14px 0px;">
+                    <strong>Thay đổi thất bại</strong>
+                </div>
+            }
+            <div class="grid__row">
+                @using (Html.BeginForm("Editinfo", "UserProfile", FormMethod.Post, new { enctype = "multipart/form-data", style = "width: 100%;display: flex;" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="grid__column-2">
+                        <div>
+                            <div style="position: relative;">
+                                <img src="@Url.Content(Model.Image)" class="edit__info-img" id="previewImage" multiple accept="image/jpeg,image/png,image/jpg">
+                                <label class="edit__info-img--edit" for="Image">
+                                    <div>
+                                        <i class="fas fa-camera"></i>
+                                        <input type="file" id="Image" name="Image" style="display:none;" onchange="ShowImage(this, document.getElementById('previewImage'))" />
+                                        @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid__column-10">
+                        <ul class="edit__info-list">
+                            <li class="edit__info-item">
+                                <h4 class="edit__info-title">Họ và tên</h4>
+                                @if (ViewBag.FullName == "False")
+                                {
+                                    <strong style="color: red; font-size: 1.4rem;">Tên bạn thay đổi không hợp lệ</strong>
+                                }
+                                @Html.ValidationMessageFor(model => model.FullName, "", new { @style = "color:red;font-size:1.4rem;" })
+                                <div class="edit__info-input">
+
+                                    @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "edit__info-content" } })
+                                </div>
+                            </li>
+                            <li class="edit__info-item">
+                                <h4 class="edit__info-title">Số điện thoại</h4>
+                                @Html.ValidationMessageFor(model => model.Phone, "", new { @style = "color:red;font-size:1.4rem;" })
+                                <div class="edit__info-input">
+
+                                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "edit__info-content" } })
+                                </div>
+                            </li>
+                            <li class="edit__info-item">
+                                <h4 class="edit__info-title">Email</h4>
+                                @if (ViewBag.EmailError == "False")
+                                {
+                                    <p style="color: red; font-size: 1.4rem;">Email đã tồn tại !</p>
+                                }
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @style = "color:red;font-size:1.4rem;" })
+                                <div class="edit__info-input">
+
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "edit__info-content" } })
+                                </div>
+                            </li>
+                            <li class="edit__info-item">
+                                <h4 class="edit__info-title">Địa chỉ</h4>
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @style = "color:red;font-size:1.4rem;" })
+                                <div class="edit__info-input">
+                                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "edit__info-content" } })
+                                </div>
+                            </li>
+                            <li class="edit__info-item">
+                                <h4 class="edit__info-title">Giới tính</h4>
+                                <div class="edit__info-input">
+                                    @Html.DropDownListFor(model => model.Gender, new SelectList(Enum.GetValues(typeof(RaoVat.Models.Users.GioiTinh))), new { @class = "edit__info-content", @style = "width:auto;" })
+                                </div>
+                            </li>
+                            <li class="edit__info-item">
+                                <h4 class="edit__info-title">Ngày sinh</h4>
+                                <p id="sender" style="color:red;"></p>
+                                <div class="edit__info-input">
+                                    @Html.EditorFor(model => model.Birth, new { htmlAttributes = new { @class = "edit__info-content" } })
+                                </div>
+                            </li>
+                            <li class="edit__info-item">
+                                <h4 class="edit__info-title">Mật Khẩu</h4>
+                                @Html.ValidationMessageFor(model => model.PassWord, "", new { @style = "color:red;font-size:1.4rem;" })
+                                <div class="edit__info-input">
+                                    @Html.EditorFor(model => model.PassWord, new { htmlAttributes = new { @class = "edit__info-content" } })
+                                </div>
+                            </li>
+                        </ul>
+                        <div style="text-align:center;padding:0px 16px;">
+                            <input type="submit" class="btn btn-primary" id="btn-infouser" value="Lưu" style="margin-bottom:24px;width:100%;" />
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="grid__column-2 backgroud-color-white">
+            <div class="Service__header">
+                <img src="~/Asset/img/serivce.png" alt="" class="Service__header-img">
+                <div class="Service__header-text">
+                    <h1>Tài Khoản Dịch Vụ</h1>
+                    <span>Số Dư:@Html.DisplayFor(model => model.Balance)</span>
+                </div>
+            </div>
+            <div class="Service__header-recharge">
+                <div class="Service__header-recharge-header">Các gọi nạp</div>
+                <div class="Service__header-option">
+                    <ul class="Service__header-list">
+                        <li class="Service__header-item">
+                            <div class="flex-service">
+                                <input type="radio" id="card" name="gender" value="card" class="Service__header-recharge-input">
+                                <label for="card" class="Service__header-recharge-text">1.000.000</label>
+                            </div>
+                            <img src="~/Asset/img/serivce.png" alt="" class="Service__header-recharge-img">
+                        </li>
+                        <li class="Service__header-item">
+                            <div class="flex-service">
+                                <input type="radio" id="card" name="gender" value="card" class="Service__header-recharge-input">
+                                <label for="card" class="Service__header-recharge-text">500.000</label>
+                            </div>
+                            <img src="~/Asset/img/serivce.png" alt="" class="Service__header-recharge-img">
+                        </li>
+                        <li class="Service__header-item">
+                            <div class="flex-service">
+                                <input type="radio" id="card" name="gender" value="card" class="Service__header-recharge-input">
+                                <label for="card" class="Service__header-recharge-text">200.000</label>
+                            </div>
+                            <img src="~/Asset/img/serivce.png" alt="" class="Service__header-recharge-img">
+                        </li>
+                        <li class="Service__header-item">
+                            <div class="flex-service">
+                                <input type="radio" id="card" name="gender" value="card" class="Service__header-recharge-input">
+                                <label for="card" class="Service__header-recharge-text">100.000</label>
+                            </div>
+                            <img src="~/Asset/img/serivce.png" alt="" class="Service__header-recharge-img">
+                        </li>
+                        <li class="Service__header-item">
+                            <div class="flex-service">
+                                <input type="radio" id="card" name="gender" value="card" class="Service__header-recharge-input">
+                                <label for="card" class="Service__header-recharge-text">50.000</label>
+                            </div>
+                            <img src="~/Asset/img/serivce.png" alt="" class="Service__header-recharge-img">
+                        </li>
+                        <li class="Service__header-item">
+                            <div class="flex-service">
+                                <input type="radio" id="card" name="gender" value="card" class="Service__header-recharge-input">
+                                <label for="card" class="Service__header-recharge-text">20.000</label>
+                            </div>
+                            <img src="~/Asset/img/serivce.png" alt="" class="Service__header-recharge-img">
+                        </li>
+                    </ul>
+                </div>
+                <button class="btn btn-primary Service__header-recharge-btn">Nạp</button>
+            </div>
+        </div>
+    </div>
+</div>

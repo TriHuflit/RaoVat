@@ -1,0 +1,53 @@
+﻿@model IEnumerable<RaoVat.Models.News>
+@using System.Globalization;
+<div class="info__user-news-havenews">
+    <ul class="news__havenews-list">
+        @foreach (var item in Model)
+        {
+            <li class="news__havenews-item">
+                <a href="@Url.Action("InfoNews","News",new { IDNews=item.IDNews })" class="news__havenews-link">
+                    <div class="news__havenews-border-img">
+                        <img src="@item.Image" alt="" class="news__havenews-img">
+                    </div>
+                    <div class="news__havenews-info">
+                        <div class="news__havenews-name" style="line-height: 1.4;">@item.Name</div>
+                        @{ CultureInfo culture = new CultureInfo("vi-VN");
+                            var price = String.Format(culture, "{0:N0}", item.Price);
+                        }
+                        <div class="news__havenews-price">@price VNĐ</div>
+                    </div>
+                </a>
+                <div class="news__havenews-subinfo">
+                    <div style="display: inline-block;">
+                        @if (item.Type == false)
+                        {
+                            <span class="news__havenews-subinfo-text">
+                                <i class="fas fa-user icon-news-store"></i>
+                                Cá Nhân
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="news__havenews-subinfo-text">
+                                <i class="fas fa-store icon-news-store"></i>
+                                Cửa Hàng
+                            </span>
+                        }
+
+                        <i style="border-right: 1px solid var(--border--color);  margin:0px 4px ;"></i>
+                        <span class="news__havenews-subinfo-text">@item.Time</span>
+                    </div>
+                    @{Html.RenderAction("WishList", "Home", new { IDNews = item.IDNews });}
+                </div>
+            </li>
+        }
+
+    </ul>
+</div>
+@if (Model == null || Model.ToList().Count == 0)
+{
+    <div class="info__user-news-nothing">
+        <img src="~/Asset/img/binoculars.PNG" alt="" class="info__user-news-nothing-img">
+        <div class="info__user-news-nothing-text">Không tìm thấy tin rao bằng từ khóa của bạn.</div>
+    </div>
+}

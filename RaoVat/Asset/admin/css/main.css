@@ -1,0 +1,122 @@
+﻿.content__login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 64px 0px;
+	height:80vh;
+}
+
+.auth-form,
+.auth-form__register {
+	box-shadow: 0 2px 5px 0 rgb(0 0 0 / 25%),0 2px 10px 0 rgb(0 0 0 /20%);
+	border-radius: 4px;
+	width: 500px;
+}
+
+.auth-form__container {
+	padding: 0px 32px;
+}
+.message-error {
+	opacity: 0.6;
+	border: 1px solid red;
+	background-color: #ffcccc;
+	display: block;
+	font-size: 1.6rem;
+	padding: 16px;
+	padding-left: 32px;
+	color: red;
+}
+
+.message-success {
+	opacity: 0.6;
+	border: 1px solid green;
+	background-color: #bbe9b5;
+	display: block;
+	font-size: 1.6rem;
+	padding: 16px;
+	padding-left: 32px;
+	color: green;
+}
+.auth-form__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 16px 0px;
+}
+
+.auth-form__header-text {
+	font-size: 2.2rem;
+	font-weight: 400;
+}
+
+.auth-form__header-link {
+	color: var(--primary-color);
+	font-size: 1.6rem;
+}
+
+.auth-form__form-input {
+	width: 100%;
+	font-size: 1.6rem;
+	font-weight: 400;
+	margin-top: 16px;
+	border: 1px solid var(--border--color);
+	height: 40px;
+	border-radius: 4px;
+	padding-left: 16px;
+}
+
+
+.auth-form__help-link {
+	color: var(--primary-color);
+}
+.auth-form__controls{
+	padding:32px 0px;
+}
+.auth-form__controls-btn {
+	width: 100%;
+	margin: 32px 0px;
+}
+
+.message-error ul {
+		opacity: 0.6;
+		border: 1px solid red;
+		background-color: #ffcccc;
+		display: block;
+		margin-top: 16px;
+		list-style-type: none;
+
+}
+.message-error ul li {
+	margin:16px 0px;
+	color:red;
+}
+.message-success ul {
+	opacity: 0.6;
+	border: 1px solid green;
+	background-color: #1cfc03;
+	display: block;
+	margin-top: 16px;
+	list-style-type: none;
+}
+.message-success ul li {
+	margin:16px 0px;
+	color:green;
+}
+.btn {
+	border-radius: 4px;
+	padding: 10px 16px;
+	text-align: center;
+	cursor: pointer;
+	height: 48px;
+	border: none;
+}
+
+.btn-primary {
+	background-color: var(--primary-color);
+	color: var(--white-color);
+	font-size: 1.6rem;
+	font-weight: 400;
+}
+.color-primary {
+	color:#419A1C;
+}

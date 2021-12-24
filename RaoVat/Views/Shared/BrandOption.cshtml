@@ -1,0 +1,8 @@
+﻿<option value="">Chọn dòng</option>
+@if (ViewBag.BrandList != null)
+{
+    foreach(var item in ViewBag.BrandList)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}

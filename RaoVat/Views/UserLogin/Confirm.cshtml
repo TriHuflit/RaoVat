@@ -1,0 +1,32 @@
+﻿
+
+<div class="grid">
+    <div style="margin-top:16px;">
+        <div>
+            <div class="message-error" id="previous" style="opacity:1;">
+                <strong>Xác Nhận Tài Khoản</strong>
+                <input type="submit" class="btn btn-primary" style="background-color:#E02D1B;" value="Xác Nhận" onclick="Verified()" />
+            </div>
+            <div class="message-success" id="after" style="display:none;opacity:1;">
+                <strong><span class="glyphicon glyphicon-ok"></span> Your Account Is Active Now</strong>
+            </div>
+        </div>
+    
+    </div>
+ </div>
+
+
+<script>
+    function Verified() {
+        $.ajax({
+            type: "post",
+            url: "/UserLogin/RegisterConfirm",
+            data: { 'IDUser': '@ViewBag.IDUser' },
+            success: function (msg) {
+                $("#previous").hide();
+                $("#after").show();
+            }
+        })
+    }
+</script>
+

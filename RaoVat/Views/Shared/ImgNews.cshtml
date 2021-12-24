@@ -1,0 +1,35 @@
+﻿@model IEnumerable<RaoVat.Models.ImgNews>
+<div class="slider-item">
+    @{int temp = 0; }
+    @foreach (var item in Model)
+    {
+
+        if (temp == 0)
+        {
+            <img src="@item.ImgURL" alt="" class="product_info-img" style="display:block">
+
+        }
+        else
+        {
+            <img src="@item.ImgURL" alt="" class="product_info-img" style="display:none">
+        }
+        temp++;
+    }
+</div>
+<a class="next-product" onclick="plusSlides(1)" style="text-decoration:none;color:white;">❯</a>
+<a class="prev-product" onclick="plusSlides(-1)" style="text-decoration:none;color:white;">❮</a>
+<div class="dot">
+    @for (int i = 1; i <= temp; i++)
+    {
+        if (i == 1)
+        {
+            <span class="dot-item active" onclick="currentSlide(@i)"></span>
+        }
+        else
+        {
+            <span class="dot-item" onclick="currentSlide(@i)"></span>
+        }
+    }
+</div>
+<script src="~/Asset/js/slideinfoproduct.js"></script>
+

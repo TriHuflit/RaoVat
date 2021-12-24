@@ -1,0 +1,76 @@
+﻿@model PagedList.IPagedList<RaoVat.Models.Category>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display:flex; justify-content:space-between; align-items:center;">
+    <h1>Danh Sách Danh Mục Cha</h1>
+    @using (Html.BeginForm("Index", "Categories", FormMethod.Get, new { @class = "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" }))
+    {
+        <div class="input-group">
+            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                   aria-label="Search" aria-describedby="basic-addon2" name="searchCategories">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" style="background:#419A1C;">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+<p>
+    @Html.ActionLink("Thêm Mới Danh Mục", "CreateCategory", "Categories")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Mã Danh Mục
+        </th>
+        <th>
+            Tên Danh Mục
+        </th>
+        <th>
+            Hình Ảnh
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+             <td>
+                @Html.DisplayFor(modelItem => item.IDCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <img src="@item.Image" alt="Chưa có hình ảnh" style="width:100px; height:100px " />
+            </td>
+            <td>
+                @Html.ActionLink("Chỉnh Sửa", "EditCategory", new { IDCategory = item.IDCategory }) |          
+                @Html.ActionLink("Xóa", "DeleteCategory", new { IDCategory = item.IDCategory })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index","Categories", new { page }), new PagedListRenderOptions
+{
+    DisplayLinkToIndividualPages = true,
+    DisplayPageCountAndCurrentLocation = false,
+    MaximumPageNumbersToDisplay = 10,
+    LiElementClasses = new string[] { "page-item" },
+    UlElementClasses = new string[] { "pagination" },
+    ContainerDivClasses = new string[] { "page-list" },
+    Display = PagedList.Mvc.PagedListDisplayMode.IfNeeded,
+    LinkToNextPageFormat = "Next",
+    LinkToPreviousPageFormat = "Prev",
+    DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+    ClassToApplyToFirstListItemInPager = "pagerLiElementFirst",
+    ClassToApplyToLastListItemInPager = "pagerLiElement",
+
+})

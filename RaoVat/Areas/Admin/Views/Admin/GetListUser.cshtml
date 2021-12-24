@@ -1,0 +1,91 @@
+﻿@model PagedList.IPagedList<RaoVat.Models.Users>
+@using PagedList.Mvc
+<div style="display:flex; justify-content:space-between; align-items:center;">
+    <h1>Danh Sách Người Dùng</h1>
+    @using (Html.BeginForm("GetListUser", "Admin", FormMethod.Get, new { @class = "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" }))
+    {
+        <div class="input-group">
+            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                   aria-label="Search" aria-describedby="basic-addon2" name="searchUser">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" style="background:#419A1C;">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    }
+</div>
+<p>
+    @Html.ActionLink("Tạo mới người dùng", "CreateUser", "Admin", new { @class = "color-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Mã Người Dùng
+        </th>
+        <th>
+            Tên Tài Khoản
+        </th>
+        <th>
+           Loại Tài Khoản
+        </th>
+        <th>
+           Ngày Tạo Tài Khoản
+        </th>
+        <th>
+           Giới Tính
+        </th>
+        <th>
+           Địa Chỉ Email
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.DateCreate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Chỉnh Sửa", "Edit", new { IDUser = item.IDUser }, new { @class = "color-primary" }) |
+                @Html.ActionLink("Xóa", "Delete", new { IDUser = item.IDUser }, new { @class = "color-primary" })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("GetListUser", "Admin", new { page }), new PagedListRenderOptions
+{
+    DisplayLinkToIndividualPages = true,
+    DisplayPageCountAndCurrentLocation = false,
+    MaximumPageNumbersToDisplay = 10,
+    LiElementClasses = new string[] { "page-item" },
+    UlElementClasses = new string[] { "pagination" },
+    ContainerDivClasses = new string[] { "page-list" },
+    Display = PagedList.Mvc.PagedListDisplayMode.IfNeeded,
+    LinkToNextPageFormat = "Next",
+    LinkToPreviousPageFormat = "Prev",
+    DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+    ClassToApplyToFirstListItemInPager = "pagerLiElementFirst",
+    ClassToApplyToLastListItemInPager = "pagerLiElement",
+
+})
+

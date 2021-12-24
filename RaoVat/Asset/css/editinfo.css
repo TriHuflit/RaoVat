@@ -1,0 +1,142 @@
+﻿.edit__info-header {
+	margin: 8px 8px;
+	line-height: 3.6rem;
+	border-bottom: 1px solid var(--border--color);
+}
+
+.edit__info-img {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.edit__info-img--edit {
+	position: absolute;
+	right: 6%;
+	cursor: pointer;
+	font-size: 3rem;
+	bottom: 5%;
+	color: white;
+	background-color: #4A4A4A;
+	border-radius: 50%;
+	padding: 8px;
+}
+
+.edit__info-list {
+	padding: 0px 16px 16px 16px;
+	margin: 0;
+}
+
+.edit__info-item {
+	margin-bottom: 16px;
+	list-style: none;
+}
+
+.edit__info-title {
+	font-size: 1.6rem;
+	margin: 0;
+	margin-bottom: 8px;
+}
+
+.edit__info-input {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 40px;
+}
+
+.edit__info-content {
+	font-size: 1.4rem;
+	font-weight: 400;
+	height: 100%;
+	width: 100%;
+	border: 1px solid var(--border--color);
+	font-size: 1.6rem;
+	border-radius: 5px;
+}
+
+.edit__info-edit {
+	font-size: 1.8rem;
+	color: var(--primary-color);
+}
+
+.backgroud-color-white {
+	background-color: var(--white-color);
+	margin: 16px 8px;
+}
+
+.Service__header {
+	margin: 8px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.Service__header-img {
+	width: 75px;
+	height: 75px;
+}
+
+.Service__header-text {
+	margin-left: 8px;
+}
+
+	.Service__header-text h1 {
+		font-size: 1.6rem;
+	}
+
+	.Service__header-text span {
+		font-size: 1.4rem;
+	}
+
+.Service__header-recharge {
+	font-size: 1.5rem;
+	font-weight: 500;
+}
+
+.Service__header-recharge-header {
+	background-color: #DFDFDF;
+	text-align: center;
+	padding: 8px;
+}
+
+.Service__header-list {
+	margin: 0;
+	padding: 0;
+	margin: 0 8px;
+}
+
+.Service__header-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 8px;
+}
+
+.Service__header-recharge-img {
+	width: 40px;
+	height: 40px;
+}
+
+.Service__header-recharge-text {
+	font-size: 1.5rem;
+	font-weight: 400;
+	margin-left: 8px;
+}
+
+.Service__header-recharge-input {
+	width: 20px;
+	height: 20px;
+}
+
+.flex-service {
+	display: flex;
+	align-items: center;
+}
+
+.Service__header-recharge-btn {
+	width: 100%;
+	height: 36px;
+	margin-top: 16px;
+}

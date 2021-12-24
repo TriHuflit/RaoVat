@@ -1,0 +1,83 @@
+﻿@model RaoVat.Models.Users
+<style>
+    .delete-news-btn:hover {
+        opacity: 0.6;
+    }
+</style>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var session = (RaoVat.Common.UserSession)Session[RaoVat.Common.CommonConstants.USER_SESSION];
+}
+
+<div class="grid">
+    <div class="info__user-personal">
+        <div class="info__user-personal-main">
+            <img src="@Url.Content(Model.Image)" alt="" class="info__user-personal-img" style="object-fit:cover;">
+            <div style="margin-left:12px;">
+                <h1 class="info__user-personal-name"> @Html.DisplayFor(model => model.FullName)</h1>
+                <a href="@Url.Action("EditInfo","UserProfile",new { IDUser=session.User_ID })" class="info__user-personal-btn">
+                    Chỉnh sửa trang cá nhân
+                </a>
+            </div>
+        </div>
+        <div class="info__user-personal-sub">
+            <ul class="info__user-personal-sub-list">
+                <li class="info__user-personal-sub-list-item">
+                    <i class="far fa-star user-personal-icon"></i>
+                    <span>Đánh giá: Chưa có đánh giá</span>
+                </li>
+                <li class="info__user-personal-sub-list-item">
+                    <i class="far fa-map user-personal-icon"></i>
+                    @Html.DisplayFor(model => model.Address)
+                </li>
+                <li class="info__user-personal-sub-list-item">
+                    <i class="far fa-calendar user-personal-icon"></i>
+                    @Html.DisplayFor(model => model.DateCreate, "{0:dd-MM-yyyy}")
+                </li>
+            </ul>
+        </div>
+        <div class="info__user-personal-sub">
+            <ul class="info__user-personal-sub-list">
+                <li class="info__user-personal-sub-list-item">
+                    <a href="@Url.Action("BoxSave","UserProfile",new { IDUser=Model.IDUser })" class="info__user-personal-sub-item-link">
+                        <i class="fab fa-gratipay user-personal-sub-icon heart"></i>
+                        <span>Xem tin đã lưu</span>
+                    </a>
+                </li>
+                <li class="info__user-personal-sub-list-item">
+                    <a href="" class="info__user-personal-sub-item-link">
+                        <i class="fas fa-book-open user-personal-sub-icon history"></i>
+                        <span>Xem lịch sử giao dịch</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="info__user-news" id="news-of-user">
+        @{Html.RenderAction("newsOfUser", "News");}
+    </div>
+    <div class="info__user-news" id="news-of-refuse">
+        @{Html.RenderAction("newsRefuse", "News");}
+    </div>
+</div>
+<div class="modal" id="eventclick-modal" style="z-index:999;">
+    <div class="modal__overplay" onclick="closeModal()">
+    </div>
+    <div class="modal__body">
+        <div id="Message-Comfirm">
+            <h1 class="message-header">Thông Báo</h1>
+            <p class="message-text">Bạn có chắc rằng muốn xóa tin rao ?</p>
+            <div style="padding-top: 8px; padding-bottom: 32px;">
+                <button class="btn btn-primary comfirm-btn" onclick="ComfirmDelete()"> Xác Nhận</button>
+                <button class="btn btn-primary cancel-btn" style="width:100.83px;" onclick="closeModal()"> Hủy</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Asset/js/deletenews.js"></script>
+<script src="~/Asset/js/deleterefuse.js"></script>

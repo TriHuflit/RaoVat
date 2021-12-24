@@ -1,0 +1,46 @@
+﻿@model RaoVat.Models.Users
+@{
+    ViewBag.Title = "InfoOtherUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="grid">
+    <div class="info__user-personal">
+        <div class="info__user-personal-main">
+            <img src="@Url.Content(Model.Image)" alt="" class="info__user-personal-img">
+            <div>
+                <h1 class="info__user-personal-name">@Html.DisplayFor(model => model.FullName)</h1>
+            </div>
+        </div>
+        <div class="info__user-personal-sub">
+            <ul class="info__user-personal-sub-list">
+                <li class="info__user-personal-sub-list-item">
+                    <i class="far fa-star user-personal-icon"></i>
+                    <span>Đánh giá: Chưa có đánh giá</span>
+                </li>
+                <li class="info__user-personal-sub-list-item">
+                    <i class="far fa-map user-personal-icon"></i>
+                    <span>
+                        Địa chỉ:
+                        @Html.DisplayFor(model => model.Address)
+                    </span>
+                </li>
+                <li class="info__user-personal-sub-list-item">
+                    <i class="far fa-calendar user-personal-icon"></i>
+                    <span>
+                        Ngày tham gia:
+                        @Html.DisplayFor(model => model.DateCreate)
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="info__user-news">
+        @{ Html.RenderAction("NewsOfOtherUser", "News", new { IDUser = Model.IDUser });}
+    </div>
+</div>
+<link href="~/Asset/css/toastr.min.css" rel="stylesheet">
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Asset/js/toastr.min.js"></script>
+<script src="~/Asset/js/wishlist.js"></script>
+

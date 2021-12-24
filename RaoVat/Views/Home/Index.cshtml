@@ -1,0 +1,56 @@
+﻿
+<style>
+    .pagination {
+        justify-content: center !important;
+    }
+
+    .page-item {
+        list-style-type: none;
+    }
+
+        .page-item a {
+            color: #419A1C !important;
+            text-decoration: none;
+            font-size: 1.7rem;
+            border: none;
+        }
+
+        .page-item.active a {
+            z-index: 3;
+            text-decoration: underline !important;
+            border-color: #dddfeb !important;
+            background: white !important;
+        }
+</style>
+<div class="grid">
+    <div class="slideshow">
+        <div class="slideshow-wrap">
+            <div class="mySlides">
+                <img src="~/Asset/img/slide.jpg" class="slide-img" alt="">
+            </div>
+            <div class="mySlides">
+                <img src="~/Asset/img/slide2.jpg" class="slide-img" alt="">
+            </div>
+            <div class="mySlides">
+                <img src="~/Asset/img/slide3.jpg" class="slide-img" alt="">
+            </div>
+        </div>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <div class="dot">
+            <span class="dot-item" onclick="currentSlide(1)"></span>
+            <span class="dot-item" onclick="currentSlide(2)"></span>
+            <span class="dot-item" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
+    @{Html.RenderAction("LoadCategory", "Home");}
+    <div id="newspage">
+        @{Html.RenderAction("LoadNews", "Home");}
+    </div>
+</div>
+    
+<link href="~/Asset/css/toastr.min.css" rel="stylesheet">
+<script src="~/Asset/js/script.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Asset/js/toastr.min.js"></script>
+<script src="~/Asset/js/wishlist.js"></script>

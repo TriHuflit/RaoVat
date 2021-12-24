@@ -1,0 +1,54 @@
+﻿@{
+    var session = (RaoVat.Common.UserSession)Session[RaoVat.Common.CommonConstants.USER_SESSION];
+}
+
+
+
+@if (Session[RaoVat.Common.CommonConstants.USER_SESSION] == null)
+{
+    <a href="@Url.Action("Index","UserLogin")" class="header__login-link btn">
+        <i class="header__login-icon far fa-user-circle"></i>
+        <span class="header__login-text">Đăng Nhập</span>
+    </a>
+}
+else
+{
+<div style="flex:1 !important;" class="header__userinfo-link">
+    @if (session.Avatar != null)
+    {
+        <img src="@session.Avatar" alt="" class="header__userinfo-avatar">
+    }
+    else
+    {
+        <img src="~/Asset/img/user.png" alt="" class="header__userinfo-avatar">
+    }
+    <p class="header__userinfo-name">@session.User_Name</p>
+    <div class="header__userinfo-setting">
+        <ul class="header__userinfo-list">
+            <li class="header__userinfo-item">        
+                <a href="@Url.Action("Index","UserProfile",new { IDUser=session.User_ID})" class="header__userinfo-item-link">
+                    <i class="fas fa-address-book icon-user"></i>
+                    Xem thông tin cá nhân
+                </a>
+            </li>
+            <li class="header__userinfo-item">
+                <a href="" class="header__userinfo-item-link">
+                    <i class="fas fa-cog icon-user"></i>
+                    Cài đặt thông tin
+                </a>
+            </li>
+            <hr style="border: 1px solid var(--border--color);">
+            <li class="header__userinfo-item">
+                <a href="@Url.Action("Logout","UserLogin")" class="header__userinfo-item-link">
+                    <i class="fas fa-sign-out-alt icon-user"></i>
+                    Đăng xuất
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+ 
+
+}
+
+

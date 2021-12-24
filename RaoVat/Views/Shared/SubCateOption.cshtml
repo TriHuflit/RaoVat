@@ -1,0 +1,8 @@
+﻿<option value="">Chọn Danh Mục Con</option>
+@if (ViewBag.SubCateList != null)
+{
+    foreach(var item in ViewBag.SubCateList)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}
