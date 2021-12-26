@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using PagedList;
 using System.Text.RegularExpressions;
 using System.Text;
+using RaoVat.DesignPattern;
 
 namespace RaoVat.Controllers
 {
@@ -161,13 +162,21 @@ namespace RaoVat.Controllers
             keyword = RemoveUnicode(keyword);
             List<News> news= db.News.Where( delegate (News c)
             {
-                if (RemoveUnicode(c.Name.ToLower()).IndexOf(keyword.ToLower()) >=0 && c.Status==2)
+                if (RemoveUnicode(c.Name.ToLower()).IndexOf(keyword.ToLower()) >= 0 && c.Status == 2)
+                    return true;
+                else if (RemoveUnicode(c.Brand.Name.ToLower()).IndexOf(keyword.ToLower()) >= 0 && c.Status == 2)
+                    return true;
+                else if (RemoveUnicode(c.Brand.SubCategory.Name.ToLower()).IndexOf(keyword.ToLower()) >= 0 && c.Status == 2)
+                    return true;
+                else if (RemoveUnicode(c.Brand.SubCategory.Category.Name.ToLower()).IndexOf(keyword.ToLower()) >= 0 && c.Status == 2)
                     return true;
                 else
                     return false;
             }).ToList();
             //List<News> model = db.News.Where(x => x.Name.ToLower().Contains(keyword.ToLower()) && x.Status==2).OrderBy(x => x.Time).ToList();
-            foreach (var item in news)
+            IIterator iterator = new NewsIterator(news);
+            var item = iterator.First();
+            while (!iterator.isDone)
             {
                 if (item.Users.Avatar != null)
                 {
@@ -179,6 +188,7 @@ namespace RaoVat.Controllers
                 }
                 ImgNews imgNews = db.ImgNews.Where(x => x.IDNews == item.IDNews).FirstOrDefault();
                 item.Image = imgNews.ImgURL;
+                item = iterator.Next();
             }
             ViewBag.ListCate = db.Category.ToList();
             return View(news);
@@ -190,7 +200,22 @@ namespace RaoVat.Controllers
                 ViewBag.ListCate = db.Category.ToList();
                 ViewBag.Category = IDCategory;
                 List<News> news = db.News.Where(x => x.Brand.SubCategory.Category.IDCategory == IDCategory && x.Status == 2).ToList();
-                foreach (var item in news)
+                //foreach (var item in news)
+                //{
+                //    if (item.Users.Avatar != null)
+                //    {
+                //        item.Users.Image = ConvertImage(item.Users.Avatar);
+                //    }
+                //    else
+                //    {
+                //        item.Users.Image = "./Asset/img/user.png";
+                //    }
+                //    ImgNews imgNews = db.ImgNews.Where(x => x.IDNews == item.IDNews).FirstOrDefault();
+                //    item.Image = imgNews.ImgURL;
+                //}
+                IIterator iterator = new NewsIterator(news);
+                var item = iterator.First();
+                while (!iterator.isDone)
                 {
                     if (item.Users.Avatar != null)
                     {
@@ -202,6 +227,7 @@ namespace RaoVat.Controllers
                     }
                     ImgNews imgNews = db.ImgNews.Where(x => x.IDNews == item.IDNews).FirstOrDefault();
                     item.Image = imgNews.ImgURL;
+                    item = iterator.Next();
                 }
                 return View(news);
             }
@@ -214,7 +240,22 @@ namespace RaoVat.Controllers
                 ViewBag.ListCate = db.Category.ToList();
                 ViewBag.SubCategory = IDSubCategory;
                 List<News> news = db.News.Where(x => x.Brand.SubCategory.IDSubCategory == IDSubCategory && x.Status == 2).ToList();
-                foreach (var item in news)
+                //foreach (var item in news)
+                //{
+                //    if (item.Users.Avatar != null)
+                //    {
+                //        item.Users.Image = ConvertImage(item.Users.Avatar);
+                //    }
+                //    else
+                //    {
+                //        item.Users.Image = "./Asset/img/user.png";
+                //    }
+                //    ImgNews imgNews = db.ImgNews.Where(x => x.IDNews == item.IDNews).FirstOrDefault();
+                //    item.Image = imgNews.ImgURL;
+                //}
+                IIterator iterator = new NewsIterator(news);
+                var item = iterator.First();
+                while (!iterator.isDone)
                 {
                     if (item.Users.Avatar != null)
                     {
@@ -226,6 +267,7 @@ namespace RaoVat.Controllers
                     }
                     ImgNews imgNews = db.ImgNews.Where(x => x.IDNews == item.IDNews).FirstOrDefault();
                     item.Image = imgNews.ImgURL;
+                    item = iterator.Next();
                 }
                 return View(news);
             }

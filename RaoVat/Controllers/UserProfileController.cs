@@ -3,18 +3,12 @@ using RaoVat.DAO;
 using RaoVat.Models;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Threading.Tasks;
-using Firebase.Auth;
-using System.Threading;
-using Firebase.Storage;
 using RaoVat.Context;
 
 namespace RaoVat.Controllers

@@ -43,7 +43,7 @@ namespace RaoVat.Controllers
         {
             if (model.IDNews != null)
             {
-                IEnumerable<News> news = db.News.Where(x => x.Brand.IDSubCategory == model.Brand.IDSubCategory && x.IDNews != model.IDNews).ToList();
+                IEnumerable<News> news = db.News.Where(x => x.Brand.IDSubCategory == model.Brand.IDSubCategory && x.IDNews != model.IDNews && x.Status==2).ToList();
                 if (news.ToList().Count > 5)
                 {
                     news = news.Take(5);
