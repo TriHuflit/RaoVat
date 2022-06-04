@@ -1,0 +1,50 @@
+﻿@{
+    var session = (RaoVat.Common.UserSession)Session[RaoVat.Common.CommonConstants.USER_SESSION];
+}
+
+<div class="grid__column-8">
+    <div class="form-chat">
+        <h1 class="form-chat-header">
+            Nội Dung Chat
+        </h1>
+        <div style="border-bottom: 1px solid var(--border--color);"></div>
+        <div id="chat-box">
+            <div class="content-chat-otheruser">
+                <div>
+                    <div class="content-otheruser">
+                        <p>Nội dung tin nhắn</p>
+                    </div>
+                </div>
+            </div>
+            <div class="content-chat-user">
+                <div>
+                    <div class="content-user">
+                        <p>Nội dung tin nhắn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-box-send">
+            <div class="chat-box-send-input" id="divChat">
+                <input class="chat-box-input" type="text" placeholder="Chat" id="txtMessage">
+                <div style="position: absolute; right: 0;
+                            bottom: 14%; ">
+                    <label class="edit__icon-chat" for="file-input">
+                        <div style="cursor: pointer;">
+                            <img src="~/Asset/img/camera-icon.png" width="50px">
+                            <input type="file" multiple accept="image/jpeg,image/png,image/jpg"
+                                   style="display:none;" id="file-input">
+                        </div>
+                    </label>
+
+                </div>
+            </div>
+            <button style="width: 20%;" class="btn btn-primary" id="btnSend">Gửi</button>
+        </div>
+    </div>
+
+</div>
+@Html.Hidden("chat-username",session.User_Name,new { id = "username" })
+
+

@@ -1,0 +1,88 @@
+﻿@model RaoVat.Models.Blog
+
+@{
+    ViewBag.Title = "Xóa Bài Viết";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xóa Bài Viết</h2>
+
+<h3>Bạn có chắc xóa bài viết này ?</h3>
+<div>
+    <h4>Blog</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tác giả
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+        <dt>
+            Ngày Viết
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreate)
+        </dd>
+
+        <dt>
+            Loại Bài Viết
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            Tiêu Đề
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titile)
+        </dd>
+
+        <dt>
+            Mô Tả
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            Nội Dung
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Content)
+        </dd>
+        <dt>
+            Hình Ảnh  
+        </dt>
+        <dd>
+            @if (Model != null)
+            {
+                <img src="@Model.ImgURL" style="width:150px;height:150px" id="previewImage" multiple accept="image/jpeg,image/png,image/jpg" />
+            }
+        </dd>
+        <dt>
+            Slug
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.slug)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete"  class="btn btn-primary"  style=" background-color: #419A1C; border-color:#419A1C;" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

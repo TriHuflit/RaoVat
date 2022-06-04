@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="margin:32px 0">
+    <div class="grid">
+        <div class="grid__row">
+            @{Html.RenderAction("ListFriend", "Chat");}
+
+            @{Html.RenderAction("ChatBox", "Chat");}
+        </div>
+    </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Asset/js/chat.js"></script>

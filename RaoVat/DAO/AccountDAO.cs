@@ -61,7 +61,7 @@ namespace RaoVat.DAO
         public string CheckRegister(string UserName, string PassWord, string Email)
         {
             string res;
-            switch (new AccountDAO().Register(UserName, PassWord, Email))
+            switch (Register(UserName, PassWord, Email))
             {
                 case -1:
                     res = "Tài khoản đã tồn tại";

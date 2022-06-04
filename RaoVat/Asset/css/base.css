@@ -104,7 +104,8 @@ html{
 }
 #Message-Delete1, #Message-Delete2, #Message-Comfirm {
     margin: 0 auto;
-    width: 300px;
+    width: 500px;
+    height:500px;
     background-color: var(--white-color);
     text-align: center;
 }

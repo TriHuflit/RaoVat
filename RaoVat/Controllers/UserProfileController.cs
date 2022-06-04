@@ -136,7 +136,7 @@ namespace RaoVat.Controllers
                 Users user = db.Users.Where(x => x.IDUser == User.User_ID).FirstOrDefault();
                 List<News> listnews = db.News.Where(x => x.IDUser == user.IDUser).ToList();
               
-                if (listnews.Count < 3)
+                if (listnews.Count <100)
                 {
                     News news = new News();
                     news.listCate = db.Category.ToList();
@@ -205,7 +205,7 @@ namespace RaoVat.Controllers
                             string path = Path.Combine(Server.MapPath("~/Content/images/"), item.FileName);
                             item.SaveAs(path);
                             steam = new FileStream(Path.Combine(path), FileMode.Open);
-                            Task.WaitAll(Task.Run(()=>ConnectFireBase.Upload(steam, item.FileName, model)));
+                            Task.WaitAll(Task.Run(()=>ConnectFireBase.Upload(steam, item.FileName, model, db)));
 
 
                         }
@@ -252,7 +252,7 @@ namespace RaoVat.Controllers
                     news.IDUser = User.User_ID;
                     news.IDNews = db.Database.SqlQuery<string>("select dbo.fn_getRandom_Value()").FirstOrDefault();
                     news.Time = DateTime.Now;
-                    news.Status = 0;
+                    news.Status = 2;
                     db.News.Add(news);
                     db.SaveChanges();
                     
@@ -265,7 +265,7 @@ namespace RaoVat.Controllers
                             string path = Path.Combine(Server.MapPath("~/Content/images/"), item.FileName);
                             item.SaveAs(path);
                             steam = new FileStream(Path.Combine(path), FileMode.Open);
-                            await Task.Run(() => ConnectFireBase.Upload(steam, item.FileName, news));
+                            await Task.Run(() => ConnectFireBase.Upload(steam, item.FileName, news, db));
                         }
                     }
                     news = new News();
@@ -341,7 +341,7 @@ namespace RaoVat.Controllers
                         {
                             User.Avatar = ConvertImage(model.Avatar);
                         }
-                        User.User_Name = model.FullName;
+                        User.Full_Name = model.FullName;
                         return View(user);
                     }
                   

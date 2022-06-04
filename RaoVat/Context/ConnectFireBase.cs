@@ -2,25 +2,22 @@
 using Firebase.Storage;
 using RaoVat.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace RaoVat.Context
 {
     public class ConnectFireBase
     {
-        public static RaoVatModel db = new RaoVatModel();
-        public static string ApiKey = "AIzaSyBvVPyxAH6HUi6G4ywVitP6OQtslH6tro8";
-        public static  string Bucket = "testraovat.appspot.com";
-        public static string AuthEmail = "abc@gmail.com";
-        public static string AuthPassword = "123abc";
+        public static string ApiKey = "yourkey";
+        public static  string Bucket = "yourBucket";
+        public static string AuthEmail = "youremail";
+        public static string AuthPassword = "yourpassword";
 
 
-        public static async  Task Upload(FileStream stream, string fileName, News news)
+        public static async  Task Upload(FileStream stream, string fileName, News news,RaoVatModel db)
         {
             var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
             var a = await auth.SignInWithEmailAndPasswordAsync(AuthEmail, AuthPassword);
@@ -51,7 +48,96 @@ namespace RaoVat.Context
             }
             
         }
-       
+        public static async Task UploadBlog(FileStream stream, string fileName, Blog blog, RaoVatModel db)
+        {
+            var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
+            var a = await auth.SignInWithEmailAndPasswordAsync(AuthEmail, AuthPassword);
+            string link = "";
+            var cancellation = new CancellationTokenSource();
+            var task = new FirebaseStorage(Bucket,
+            new FirebaseStorageOptions
+            {
+                AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
+                ThrowOnCancel = true
+            }).Child("images").Child(blog.IDBlog + fileName).PutAsync(stream, cancellation.Token);
+            blog.ImgURL = await task;
+            blog.NameImage = blog.IDBlog + fileName;
+            db.Blog.Add(blog);
+            db.SaveChanges();
+            try
+            {
+                link = await task;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception was thrown: {0}", ex);
+            }
+
+        }
+        public static async Task UpdateBlog(FileStream stream, string fileName, Blog blog,RaoVatModel db)
+        {
+            var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
+            var a = await auth.SignInWithEmailAndPasswordAsync(AuthEmail, AuthPassword);
+            string link = "";
+            var cancellation = new CancellationTokenSource();
+            var task = new FirebaseStorage(Bucket,
+            new FirebaseStorageOptions
+            {
+                AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
+                ThrowOnCancel = true
+            }).Child("images").Child(blog.IDBlog + fileName).PutAsync(stream, cancellation.Token);
+            blog.ImgURL = await task;
+            blog.NameImage = blog.IDBlog + fileName;
+            db.Entry(blog).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            try
+            {
+                link = await task;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception was thrown: {0}", ex);
+            }
+
+        }
+        private static Stream GetStreamFromUrl(string url)
+        {
+            byte[] imageData = null;
+
+            using (var wc = new System.Net.WebClient())
+                imageData = wc.DownloadData(url);
+
+            return new MemoryStream(imageData);
+        }
+        public static async Task DuplicateBlog(string filename,Blog blog, RaoVatModel db)
+        {
+            Stream stream= GetStreamFromUrl(filename);
+            var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
+            var a = await auth.SignInWithEmailAndPasswordAsync(AuthEmail, AuthPassword);
+            string link = "";
+            var cancellation = new CancellationTokenSource();
+            var task = new FirebaseStorage(Bucket,
+            new FirebaseStorageOptions
+            {
+                AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
+                ThrowOnCancel = true
+            }).Child("images").Child(blog.IDBlog + blog.slug).PutAsync(stream, cancellation.Token);
+            blog.ImgURL = await task;
+            blog.NameImage = blog.IDBlog + filename;
+            db.Blog.Add(blog);
+            db.SaveChanges();
+            try
+            {
+                link = await task;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception was thrown: {0}", ex);
+            }
+
+        }
+
+
         public static async void Delete(string name)
         {
             var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));

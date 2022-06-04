@@ -1,0 +1,52 @@
+﻿.header__blog > h1 {
+    font-size: 3rem;
+    text-align: center;
+}
+
+.blog__list {
+    background: white;
+}
+
+.blog__list-item {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 16px;
+    padding-top: 34px;
+}
+
+.blog__list-flex {
+    margin: 0px 16px;
+}
+.blog__list-img {
+    width: 150px;
+    height: 100px;
+}
+.blog__list-title {
+    font-size: 2.9rem;
+    line-height: 3rem;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.blog__list-description {
+    display: -webkit-box !important;
+    position: relative;
+    height: 96px;
+    line-height: 1.6;
+    overflow: hidden;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    font-size: 1.6rem;
+}
+
+.blog__list-item-line {
+    border-bottom: 1px solid #dddddd;
+    padding-top: 16px;
+}
+
+
+.blog__list-link {
+    font-size: 1.6rem;
+    text-decoration: none;
+}

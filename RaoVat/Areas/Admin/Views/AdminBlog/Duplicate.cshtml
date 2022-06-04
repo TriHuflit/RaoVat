@@ -1,0 +1,90 @@
+﻿@model RaoVat.Models.Blog
+
+@{
+    ViewBag.Title = "Nhân Bản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Nhân Bản</h2>
+
+<h3>Bạn có chắc Nhân Bản bài viết này ?</h3>
+<div>
+    <h4>Blog</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Titile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @if (Model != null)
+            {
+                @Html.Raw(Model.Content)
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.slug)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.slug)
+        </dd>
+
+        <dd>
+            @if (Model != null)
+            {
+                <img src="@Model.ImgURL" style="width:150px;height:150px" id="previewImage" multiple accept="image/jpeg,image/png,image/jpg" />
+            }
+        </dd>s
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Nhân Bản"  class="btn btn-primary"  style=" background-color: #419A1C; border-color:#419A1C;" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

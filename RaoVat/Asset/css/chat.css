@@ -1,0 +1,148 @@
+﻿.list__friends {
+	background: white;
+	cursor: pointer;
+	height: 550px;
+	padding: 0px 16px;
+	border-radius: 5px;
+	overflow-y: scroll;
+	padding-top: 8px;
+}
+
+.title-list {
+	padding-left: 16px;
+	margin-bottom: 16px;
+}
+
+.friends-item {
+	display: flex;
+	padding:10px 0px;
+	align-items: center;
+	border-bottom: 1px solid var(--border--color);
+}
+.friends-item:hover {
+	background: var(--primary-color);
+	opacity: 0.6;
+}	
+.friends-item-active {
+	background: var(--primary-color);
+	color: white !important;
+}
+.friends-item-avatar, .friends-item-info {
+	margin-left: 16px;
+}
+.friends-item-info h1{
+	margin:0;
+	margin-bottom: 8px;
+}
+.friends-item-cotent {
+	display: -webkit-box !important;
+	position: relative;
+	height: 20px;
+	line-height: 1.6;
+	overflow: hidden;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+	font-size: 1.4rem;
+	color: var(--border--color);
+}
+
+.friends-item-cotent-new {
+	display: -webkit-box !important;
+	position: relative;
+	height: 20px;
+	line-height: 1.6;
+	overflow: hidden;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+
+.form-chat {
+	background: white;
+	padding-top: 8px;
+	border-radius: 5px;
+	height: 550px;
+	position: relative;
+}
+
+.form-chat-header {
+	padding-left: 16px;
+	margin-bottom: 16px;
+}
+
+#chat-box {
+	height: 76%;
+	padding-top: 16px;
+	overflow-y: scroll;
+	scroll-snap-type: y proximity;
+}
+
+.content-chat-otheruser {
+	text-align: left;
+	margin-top: 8px;
+}
+
+.content-otheruser {
+	max-width:50%;
+	margin-left: 16px;
+	padding: 8px 16px;
+	background: var(--border--color);
+	display: inline-block;
+	font-size: 1.4rem;
+	border-radius: 5px;
+	color: black;
+}
+
+.content-chat-user {
+	text-align: right;
+	margin-top: 8px;
+}
+
+.content-user {
+	max-width: 50%;
+	margin-right: 16px;
+	padding: 8px 16px;
+	background: var(--primary-color);
+	display: inline-block;
+	font-size: 1.4rem;
+	border-radius: 5px;
+	color: white;
+}
+
+.chat-box-send {
+	position: absolute;
+	bottom: 3%;
+	width: 100%;
+	display: flex;
+}
+.edit__icon-chat {
+	position: absolute;
+	right: 6%;
+	cursor: pointer;
+	font-size: 3rem;
+	bottom: -8px;
+	color: white;
+	border-radius: 50%;
+	padding: 8px;
+}
+.chat-box-send-input {
+	width: 80%;
+	margin: 0px 16px;
+	border-radius: 5px;
+	border: 1px solid var(--border--color);
+	height: 124;
+	position: relative;
+}
+
+.chat-box-input {
+	width: 100%;
+	font-size: 1.6rem;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	padding-left: 16px;
+	height: 100%
+}

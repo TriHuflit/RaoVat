@@ -1,0 +1,19 @@
+﻿@model RaoVat.Models.Blog
+@if (Model != null)
+{
+    <div class="grid">
+        <h1 class="blog__title">
+            @Model.Titile
+        </h1>
+        <div class="blog__content">
+            <div class="blog__info">
+                <span style="font-size:1.4rem">Tác giả: @Model.Author</span>
+                <span  style="font-size:1.4rem">Ngày đăng: @Model.DateCreate</span>
+            </div>
+            @Html.Raw(Model.Content)
+        </div>
+    </div>
+}
+else { 
+    <div class="grid nothing"> Không tìm thấy bài viết</div>
+}

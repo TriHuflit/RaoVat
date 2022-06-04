@@ -24,7 +24,7 @@
                     <a href="@Url.Action("Register","UserLogin")" class="auth-form__header-link">Đăng Ký</a>
                 </div>
                 <div class="auth-form__form">
-                    @Html.TextBoxFor(model => model.UserName, new { @class = "auth-form__form-input", @placeholder = "Nhập tài khoản của bạn" })
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "auth-form__form-input", @placeholder = "Nhập tài khoản của bạn",@id= "txtUserName" })
                     @Html.ValidationMessageFor(model => model.UserName, "", new { @style = "color:red" })
                     @Html.PasswordFor(model => model.PassWord, new { @class = "auth-form__form-input", @placeholder = "Mật Khẩu của bạn" })
                     @Html.ValidationMessageFor(model => model.PassWord, "", new { @style = "color:red" })
@@ -33,7 +33,7 @@
                     <a href="@Url.Action("ResetPassWord","UserLogin")" class="auth-form__help-link">Quên Mật Khẩu ?</a>
                 </div>
                 <div class="auth-form__controls">
-                    <button class="auth-form__controls-btn btn btn-primary" type="submit">Đăng Nhập</button>
+                    <button class="auth-form__controls-btn btn btn-primary" id ="btnLogin" type="submit">Đăng Nhập</button>
                 </div>
             }
         </div>

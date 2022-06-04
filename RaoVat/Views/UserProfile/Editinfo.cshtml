@@ -97,7 +97,7 @@
                                 <h4 class="edit__info-title">Mật Khẩu</h4>
                                 @Html.ValidationMessageFor(model => model.PassWord, "", new { @style = "color:red;font-size:1.4rem;" })
                                 <div class="edit__info-input">
-                                    @Html.EditorFor(model => model.PassWord, new { htmlAttributes = new { @class = "edit__info-content" } })
+                                    @Html.EditorFor(model => model.PassWord, new { htmlAttributes = new { @class = "edit__info-content",@type ="password" } })
                                 </div>
                             </li>
                         </ul>
@@ -170,3 +170,15 @@
         </div>
     </div>
 </div>
+
+<div class="modal" id="eventclick-modal" style="z-index:999;">
+    <div class="modal__overplay" onclick="closeModal()">
+    </div>
+    <div class="image-body" id="">
+        <div id="image-zoom">
+            <img src="@Url.Content(Model.Image)"
+                 alt="" style="object-fit: cover; width: 500px; height: 500px;border-radius:50%;">
+        </div>
+    </div>
+</div>
+<script src="~/Asset/js/zoomimage.js"></script>

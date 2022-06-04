@@ -19,6 +19,11 @@ namespace RaoVat.Areas.Admin
                 "Admin/{controller}/{action}/{id}",
                defaults: new {controller="Admin", action = "Index", id = UrlParameter.Optional }
             );
+            context.MapRoute(
+               name: "Admin_Blog",
+               url: "Admin/{controller}/{action}/{slug}",
+               defaults: new { controller = "AdminBlog", action = "Update" }
+            );
         }
     }
 }

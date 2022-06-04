@@ -18,7 +18,7 @@
             <img src="@Url.Content(Model.Image)" alt="" class="info__user-personal-img" style="object-fit:cover;">
             <div style="margin-left:12px;">
                 <h1 class="info__user-personal-name"> @Html.DisplayFor(model => model.FullName)</h1>
-                <a href="@Url.Action("EditInfo","UserProfile",new { IDUser=session.User_ID })" class="info__user-personal-btn">
+                <a href="@Url.Action("EditInfo", "UserProfile", new {IDUser=session.User_ID},null)" class="info__user-personal-btn">
                     Chỉnh sửa trang cá nhân
                 </a>
             </div>

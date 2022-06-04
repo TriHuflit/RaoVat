@@ -1,15 +1,15 @@
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(RaoVat.StartupOwin))]
-
-namespace RaoVat
+[assembly: OwinStartupAttribute(typeof(TestChat.Startup))]
+namespace TestChat
 {
-    public partial class StartupOwin
+    public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            //AuthStartup.ConfigureAuth(app);
+            ConfigureAuth(app);
+            app.MapSignalR();
         }
     }
 }

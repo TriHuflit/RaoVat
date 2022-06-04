@@ -25,6 +25,7 @@ namespace RaoVat.Models
         public virtual DbSet<SubCategory> SubCategory { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
+        public virtual DbSet<Blog> Blog { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Users>()

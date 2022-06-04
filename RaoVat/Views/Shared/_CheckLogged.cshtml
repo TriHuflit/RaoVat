@@ -22,11 +22,11 @@ else
     {
         <img src="~/Asset/img/user.png" alt="" class="header__userinfo-avatar">
     }
-    <p class="header__userinfo-name">@session.User_Name</p>
+    <p class="header__userinfo-name" id="welcome">@session.Full_Name</p>
     <div class="header__userinfo-setting">
         <ul class="header__userinfo-list">
             <li class="header__userinfo-item">        
-                <a href="@Url.Action("Index","UserProfile",new { IDUser=session.User_ID})" class="header__userinfo-item-link">
+                <a href="@Url.Action("Index", "UserProfile", new {IDUser=session.User_ID },null)" class="header__userinfo-item-link">
                     <i class="fas fa-address-book icon-user"></i>
                     Xem thông tin cá nhân
                 </a>

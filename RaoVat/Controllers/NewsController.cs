@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace RaoVat.Controllers
 {
+    [Route("News/InfoNews")]
     public class NewsController : Controller
     {
         RaoVatModel db = new RaoVatModel();
@@ -21,11 +22,12 @@ namespace RaoVat.Controllers
         {
             return View();
         }
+        [Route("/{IDNews}")]
         public ActionResult InfoNews(string IDNews)
         {
             if (IDNews != null)
             {
-                News news = db.News.Where(x => x.IDNews == IDNews).FirstOrDefault();
+                News news = db.News.Where(x => x.IDNews == IDNews && x.Status==2).FirstOrDefault();
                 Users user = db.Users.Where(x => x.IDUser == news.IDUser).FirstOrDefault();
                 if (user.Avatar != null)
                 {
@@ -79,8 +81,6 @@ namespace RaoVat.Controllers
         [HttpGet]
         public ActionResult NewsOfOtherUser(string IDUser)
         {
-
-
             List<News> news = db.News.Where(x => x.IDUser == IDUser && x.Status == 2).ToList();
             foreach (var item in news)
             {

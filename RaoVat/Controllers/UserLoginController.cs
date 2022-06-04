@@ -1,23 +1,15 @@
-﻿using Fluent.Infrastructure.FluentModel;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿
 using RaoVat.Common;
 using RaoVat.DAO;
 using RaoVat.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Facebook;
-using Newtonsoft.Json;
 using System.Web.Hosting;
 using System.Text;
 using System.Net.Mail;
-using System.Security.Cryptography;
+
 
 namespace RaoVat.Controllers
 {
@@ -57,7 +49,8 @@ namespace RaoVat.Controllers
                     if (infoUser.EmailComfirm)
                     {
                         userSession.User_ID = infoUser.IDUser;
-                        userSession.User_Name = infoUser.FullName;
+                        userSession.User_Name = infoUser.UserName;
+                        userSession.Full_Name = infoUser.FullName;
                         if (infoUser.Avatar != null)
                         {
                             userSession.Avatar = ConvertImage(infoUser.Avatar);
@@ -92,7 +85,8 @@ namespace RaoVat.Controllers
                 {
                     ViewData["Error"] = res;
                 }
-                return View(model);
+                ModelState.Clear();
+                return View();
             }
             return View(model);
         }

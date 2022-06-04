@@ -22,12 +22,26 @@
 	border-radius: 50%;
 	padding: 8px;
 }
-
+#previewImage:hover {
+	cursor: zoom-in;
+}
 .edit__info-list {
 	padding: 0px 16px 16px 16px;
 	margin: 0;
 }
-
+.image-body {
+	overflow: hidden;
+	position: relative;
+	border-radius: 5px;
+	margin: auto;
+	z-index: 1;
+	animation: growth linear 0.5s;
+}
+#image-zoom{
+	margin: 0 auto;
+	width: 1000px;
+	text-align: center;
+}
 .edit__info-item {
 	margin-bottom: 16px;
 	list-style: none;

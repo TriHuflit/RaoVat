@@ -11,152 +11,153 @@
         font-size: 1.5rem
     }
 </style>
-        <div class="container">
-            <div class="grid">
-                <div class="product__info">
-                    <div class="product__info-body" style="padding-top:16px">
-                        <div class="grid__row" style="padding-bottom: 12px;">
-                            <div class="grid__column-8">
-                                <div class="product__info-detail">
-                                    <div class="product__info-sliderImg">
-                                        @{Html.RenderAction("ImgNews", "News", new { IDNews = Model.IDNews });}
-                                    </div>
-                                    <div class="product__info-description">
-                                        <h2 class="description__header">
-                                            @Html.DisplayFor(model => model.Name)
-                                        </h2>
-                                        <div class="description__price">
-                                            @{ CultureInfo culture = new CultureInfo("vi-VN");
-                                                var price = String.Format(culture, "{0:N0}", Model.Price);
-                                            }
-                                            <span class="description__price-current">
-                                                @price VNĐ
-                                            </span>
-                                       
-                                            <div class="description__price-save " style="cursor:default">
-                                                <span class="description__price-save__text">Lưu Tin</span>
-                                                @{ Html.RenderAction("WishList", "Home", new { IDNews = Model.IDNews }); }
-                                            </div>
+<div class="container">
+    <div class="grid">
+        <div class="product__info">
+            <div class="product__info-body" style="padding-top:16px">
+                <div class="grid__row" style="padding-bottom: 12px;">
+                    <div class="grid__column-8">
+                        <div class="product__info-detail">
+                            <div class="product__info-sliderImg">
+                                @{Html.RenderAction("ImgNews", "News", new { IDNews = Model.IDNews });}
+                            </div>
+                            <div class="product__info-description">
+                                <h2 class="description__header">
+                                    @Html.DisplayFor(model => model.Name)
+                                </h2>
+                                <div class="description__price">
+                                    @{ CultureInfo culture = new CultureInfo("vi-VN");
+                                        var price = String.Format(culture, "{0:N0}", Model.Price);
+                                    }
+                                    <span class="description__price-current">
+                                        @price VNĐ
+                                    </span>
 
-                                        </div>
-                                        <div class="description__detail">
-                                            @{ 
-                                                string description = Model.Description;
-                                                description = description.Replace("\r\n", "<br/>").Replace("\n", "<br />");
-                                            }
-                                            <p class="description__detail-text">
-                                               @Html.Raw(description)
-                                            </p>
-                                        </div>
+                                    <div class="description__price-save " style="cursor:default">
+                                        <span class="description__price-save__text">Lưu Tin</span>
+                                        @{ Html.RenderAction("WishList", "Home", new { IDNews = Model.IDNews }); }
                                     </div>
-                                    <div class="product__other">
-                                        <h1 class="product__other-header">Thông tin khác</h1>
-                                        <div class="product__other-info">
-                                            <h1 class="brand-info">Danh mục cha: </h1>
-                                            <span class="product__other-text">
-                                                @Html.DisplayFor(model => model.Brand.SubCategory.Category.Name)
-                                            </span>
-                                        </div>
-                                        <div class="product__other-info">        
-                                            <h1 class="brand-info">Danh Mục Con: </h1>
-                                            <span class="product__other-text">
-                                                @Html.DisplayFor(model => model.Brand.SubCategory.Name)
-                                            </span>
-                                        </div>
-                                        <div class="product__other-info">
-                                            <h1 class="brand-info" >Dòng: </h1>
-                                            <span class="product__other-text">
-                                                @Html.DisplayFor(model => model.Brand.Name)
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="product__reported">
-                                        <button class="product__reported-btn">Báo cáo tin không hợp lệ</button>
-                                        <button class="product__reported-btn">Báo cáo tin đã bán</button>
-                                    </div>
+
+                                </div>
+                                <div class="description__detail">
+                                    @{
+                                        string description = Model.Description;
+                                        description = description.Replace("\r\n", "<br/>").Replace("\n", "<br />");
+                                    }
+                                    <p class="description__detail-text">
+                                        @Html.Raw(description)
+                                    </p>
                                 </div>
                             </div>
-                            <div class="grid__column-4 ">
-                                <div class="product__profile">
-                                    <div class="product__profile-seller">
-                                        <div class="product__profile-seller-flex">
-                                            <a href="@Url.Action("InfoOtherUser", "UserProfile", new { IDNews = Model.IDNews })" class="profile-seller-link profile-seller-avatar">
-                                                <img src="@Url.Content(Model.Users.Image)" alt="avatar" class="product__profile-seller-img">
-                                            </a>
-                                            <a class="product__profile-seller-name profile-seller-link" href="@Url.Action("InfoOtherUser", "UserProfile", new { IDNews = Model.IDNews })">
-                                                @Html.DisplayFor(model => model.Users.FullName)
-                                            </a>
-                                            <a class="product__profile-seller-btn profile-seller-link" href="@Url.Action("InfoOtherUser", "UserProfile", new { IDNews = Model.IDNews })">Xem cửa hàng</a>
-                                        </div>
-                                    </div>
-                                    <div class="product__profile-info">
-                                        <div class="profile-info-item ">
-                                            <p class="profile-info-item-text">Loại Hình Đăng Tin:</p>
-                                            @if (Model.Type == false)
-                                            {
-                                                <i class="fas fa-user icon-store"></i>
-                                                <span class="profile-info-item-type">Cá Nhân</span>
-                                            }
-                                            else
-                                            {
-                                                <i class="fas fa-store icon-store"></i>
-                                                <span class="profile-info-item-type">Cửa hàng</span>
-                                            }
-                                        </div>
-                                        <div class="profile-info-item feedback">
-                                            <p class="profile-info-item-text">Đánh giá:</p>
-                                            <div class="profile-info-item-feedback">
-                                      
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="product__other">
+                                <h1 class="product__other-header">Thông tin khác</h1>
+                                <div class="product__other-info">
+                                    <h1 class="brand-info">Danh mục cha: </h1>
+                                    <span class="product__other-text">
+                                        @Html.DisplayFor(model => model.Brand.SubCategory.Category.Name)
+                                    </span>
                                 </div>
-                                <div class="contact__seller">
-                                    <p class="contact__seller-header">Liên hệ với người bán</p>
-                                    <div class="contact__seller-phone">
-                                        <i class="fas fa-phone contact-icon" style="color: var(--white-color);"></i>
-                                        <span class="contact__seller-phone-number">
-                                            @Html.DisplayFor(model => model.Users.Phone)
-                                        </span>
-                                        <span class="contact__seller-phone-text">Số Điện Thoại</span>
-                                    </div>
-                                    <div class="contact__seller-chat">
-                                        <a href="" class="contact__seller-chat-link">
-                                            <i class="fab fa-facebook-messenger contact-icon"></i>
-                                            <span class="contact__seller-chat-text">Bấm để chat với người bán</span>
-                                        </a>
-                                    </div>
+                                <div class="product__other-info">
+                                    <h1 class="brand-info">Danh Mục Con: </h1>
+                                    <span class="product__other-text">
+                                        @Html.DisplayFor(model => model.Brand.SubCategory.Name)
+                                    </span>
                                 </div>
-                                <div class="other-info">
-                                    <img src="~/Asset/img/giaodich.png" alt="" class="other-info-img">
-                                    <span class="other-info-text"><b>Đừng chia sẻ thông tin cá nhân</b> cũng như <b>Chuyển tiền theo yêu cầu</b> dù giá trị nhỏ nhất!</span>
+                                <div class="product__other-info">
+                                    <h1 class="brand-info">Dòng: </h1>
+                                    <span class="product__other-text">
+                                        @Html.DisplayFor(model => model.Brand.Name)
+                                    </span>
                                 </div>
-                                <hr>
-                                <div class="other-info">
-                                    <img src="~/Asset/img/chinhhang.png" alt="" class="other-info-img">
-                                    <span class="other-info-text"><strong>Nên kiểm tra nguồn gốc sản phẩm trước khi mua bán.</strong> </span>
-                                </div>
+                            </div>
+                            <div class="product__reported">
+                                <button class="product__reported-btn">Báo cáo tin không hợp lệ</button>
+                                <button class="product__reported-btn">Báo cáo tin đã bán</button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="news__same">
-                    <h1 class="news__same-header">Tin đăng tương tự</h1>
-                    <div class="grid__row" style="padding-bottom: 12px;">
-                     
-                        @{ Html.RenderAction("ListNewsSame","News",new { model=Model });}   
+                    <div class="grid__column-4 ">
+                        <div class="product__profile">
+                            <div class="product__profile-seller">
+                                <div class="product__profile-seller-flex">
+                                    <a href="@Url.Action("InfoOtherUser", "UserProfile", new { IDNews = Model.IDNews })" class="profile-seller-link profile-seller-avatar">
+                                        <img src="@Url.Content(Model.Users.Image)" alt="avatar" class="product__profile-seller-img">
+                                    </a>
+                                    <a class="product__profile-seller-name profile-seller-link" href="@Url.Action("InfoOtherUser", "UserProfile", new { IDNews = Model.IDNews })">
+                                        @Html.DisplayFor(model => model.Users.FullName)
+                                    </a>
+                                    <a class="product__profile-seller-btn profile-seller-link" href="@Url.Action("InfoOtherUser", "UserProfile", new { IDNews = Model.IDNews })">Xem cửa hàng</a>
+                                </div>
+                            </div>
+                            <div class="product__profile-info">
+                                <div class="profile-info-item ">
+                                    <p class="profile-info-item-text">Loại Hình Đăng Tin:</p>
+                                    @if (Model.Type == false)
+                                    {
+                                        <i class="fas fa-user icon-store"></i>
+                                        <span class="profile-info-item-type">Cá Nhân</span>
+                                    }
+                                    else
+                                    {
+                                        <i class="fas fa-store icon-store"></i>
+                                        <span class="profile-info-item-type">Cửa hàng</span>
+                                    }
+                                </div>
+                                <div class="profile-info-item feedback">
+                                    <p class="profile-info-item-text">Đánh giá:</p>
+                                    <div class="profile-info-item-feedback">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact__seller">
+                            <p class="contact__seller-header">Liên hệ với người bán</p>
+                            <div class="contact__seller-phone">
+                                <i class="fas fa-phone contact-icon" style="color: var(--white-color);"></i>
+                                <span class="contact__seller-phone-number">
+                                    @Html.DisplayFor(model => model.Users.Phone)
+                                </span>
+                                <span class="contact__seller-phone-text">Số Điện Thoại</span>
+                            </div>
+                            <div class="contact__seller-chat">
+                                <a href="" class="contact__seller-chat-link">
+                                    <i class="fab fa-facebook-messenger contact-icon"></i>
+                                    <span class="contact__seller-chat-text">Bấm để chat với người bán</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="other-info">
+                            <img src="~/Asset/img/giaodich.png" alt="" class="other-info-img">
+                            <span class="other-info-text"><b>Đừng chia sẻ thông tin cá nhân</b> cũng như <b>Chuyển tiền theo yêu cầu</b> dù giá trị nhỏ nhất!</span>
+                        </div>
+                        <hr>
+                        <div class="other-info">
+                            <img src="~/Asset/img/chinhhang.png" alt="" class="other-info-img">
+                            <span class="other-info-text"><strong>Nên kiểm tra nguồn gốc sản phẩm trước khi mua bán.</strong> </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="up">
-            <a href="#" style="color: var(--primary-color);"> <i class="fas fa-chevron-up"></i></a>
+        <div class="news__same">
+            <h1 class="news__same-header">Tin đăng tương tự</h1>
+            <div class="grid__row" style="padding-bottom: 12px;">
+
+                @{ Html.RenderAction("ListNewsSame", "News", new { model = Model });}
+            </div>
         </div>
+    </div>
+</div>
+
+<div class="up">
+    <a href="#" style="color: var(--primary-color);"> <i class="fas fa-chevron-up"></i></a>
+</div>
 <link href="~/Asset/css/toastr.min.css" rel="stylesheet">
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Asset/js/toastr.min.js"></script>
 <script src="~/Asset/js/wishlist.js"></script>
-
+<script src="~/Asset/js/zoom-img.js"></script>
 <script>
     $(".home-product-item__like").attr("style", "padding:0px;");
 

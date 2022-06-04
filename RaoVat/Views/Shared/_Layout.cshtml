@@ -20,6 +20,8 @@
     <link type="text/css" rel="stylesheet" href="~/Asset/css/image-uploader.min.css">
     <link type="text/css" rel="stylesheet" href="~/Asset/admin/css/page.css" />
     <link type="text/css" rel="stylesheet" href="~/Asset/css/search.css" />
+    <link type="text/css" rel="stylesheet" href="~/Asset/css/blog.css" />
+    <link type="text/css" rel="stylesheet" href="~/Asset/css/chat.css" />
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 </head>
 <body>
@@ -38,9 +40,9 @@
                             </a>
                         </li>
                         <li class="header__item">
-                            <a href="" class="header__item-link blurred">
+                            <a href="@Url.Action("Index","Blog")" class="header__item-link blurred">
                                 <i class="header__item-icon fas fa-bullhorn"></i>
-                                <span class="header__item-text">Tôi Rao Vặt</span>
+                                <span class="header__item-text">Tin Tức</span>
 
                             </a>
                         </li>
@@ -73,7 +75,7 @@
                     @{ Html.RenderAction("Search", "Home"); }
 
                     @{Html.RenderAction("CheckLogged", "Home");}
-                    <a class="header__post-link btn public-news">
+                    <a class="header__post-link btn public-news" href="@Url.Action("createOfNews","UserProfile")">
                         <i class="header__post-icon far fa-edit"></i>
                         <span class="header__post-text"> Đăng Tin </span>
                     </a>
@@ -118,6 +120,7 @@
     <script src="~/Asset/admin/js/showImage.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
     <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
+   
     <script src="~/Asset/js/loadcity.js"></script>
     <script src="~/Scripts/jquery.datetimepicker.js"></script>
     <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
@@ -130,6 +133,8 @@
     <script src="~/Asset/js/checkCountNews.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Asset/js/checkBirth.js"></script>
-
+    <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Asset/js/connectchat.js"></script>
 </body>
 </html>

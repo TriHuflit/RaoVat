@@ -10,6 +10,7 @@ namespace RaoVat.Common
         public string User_ID { get; set; }
         public string User_Name { get; set; }
 
+        public string Full_Name { get; set; }
         public string Avatar { get; set; }
        
     }

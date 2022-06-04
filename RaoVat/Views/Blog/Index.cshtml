@@ -1,0 +1,28 @@
+﻿@model IEnumerable<RaoVat.Models.Blog>
+<h1 style="text-align:center">Danh sách tin tức</h1>
+<div class="blog__list">
+    
+    @foreach (var item in Model)
+    {
+        <div class="grid">
+            <div class="blog__list-item">
+                <a href="@Url.Action("Detail","Blog",new { slug = item.slug },null)" class="blog__list-flex" style=" width: 260px; height: 220px;">
+                    <img src="@item.ImgURL"
+                         alt="" class="blog__list-img">
+                </a>
+                <div class="blog__list-flex">
+                    <a href="@Url.Action("Detail","Blog",new { slug = item.slug },null)" class="blog__list-title">
+                        @item.Titile
+                    </a>
+                    <p class="blog__list-description">
+                       @item.Description
+                    </p>
+                    <div class="blog__list-type">
+                        <a href="#" class="blog__list-link">@item.Type</a>
+                    </div>
+                </div>
+            </div>
+            <div class="blog__list-item-line"></div>
+        </div>
+    }
+</div>

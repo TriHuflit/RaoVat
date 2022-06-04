@@ -559,6 +559,7 @@
     width: 210px;
     cursor: pointer;
     object-fit:cover;
+    border:1px solid var(--border--color);
 }
 
 .home-product-item__name{
@@ -788,7 +789,7 @@
    max-width: 100%;
    width: 100%;
    object-fit: contain;
-  
+   cursor:zoom-in;
 }
 .img-news {
     max-height: 100%;

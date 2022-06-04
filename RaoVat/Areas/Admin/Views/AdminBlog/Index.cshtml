@@ -1,0 +1,58 @@
+﻿@model IEnumerable<RaoVat.Models.Blog>
+
+<p>
+    @Html.ActionLink("Tạo mới bài viết", "Create", "Blog", new { @class = "color-primary" })
+</p>
+<div class="blog__list">
+
+    <table class="table">
+        <tr>
+            <th>
+                Mã Bài Viết
+            </th>
+            <th>
+                Tác giả
+            </th>
+            <th>
+                Loại Bài Viết
+            </th>
+            <th>
+                Ngày Tạo 
+            </th>
+            <th>
+                Hình Ảnh
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDBlog)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.slug)
+        </td>
+        <td>
+            <img src="@item.ImgURL" width="150" height="100" />
+        </td>
+        <td>
+            @Html.ActionLink("Chỉnh Sửa", "Update", new { slug = item.slug }, new { @class = "color-primary" }) |
+            @Html.ActionLink("Xóa", "Delete",new { slug = item.slug }, new { @class = "color-primary" }) |
+            @Html.ActionLink("Nhân Bản", "Duplicate", new { slug = item.slug }, new { @class = "color-primary" })
+        </td>
+    </tr>
+        }
+
+    </table>
+</div>
